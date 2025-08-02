@@ -1,0 +1,44 @@
+
+                Sat Aug  2 14:24:47 2025
+[2025/08/02@14:24:47.230-0300] P-22252      T-10536 I DBUTIL   : (451)   prostrct create session begin for anaha on CON:. 
+[2025/08/02@14:24:47.232-0300] P-22252      T-10536 I DBUTIL   : (12862) Structure file c:/Trabalho_Final_Progress/db\xtudo.st used to create database with blocksize 4096. 
+[2025/08/02@14:24:47.232-0300] P-22252      T-10536 I DBUTIL   : (334)   prostrct create session end. 
+[2025/08/02@14:24:47.251-0300] P-22252      T-10536 I DBUTIL   : (451)   procopy session begin for anaha on CON:. 
+[2025/08/02@14:24:47.299-0300] P-22252      T-10536 I DBUTIL   : (334)   procopy session end. 
+
+                Sat Aug  2 14:24:47 2025
+[2025/08/02@14:24:47.324-0300] P-22252      T-10536 I DBUTIL   : (451)   procopy get default SQL DBA session begin for anaha on CON:. 
+[2025/08/02@14:24:47.324-0300] P-22252      T-10536 I DBUTIL   : (15321) Before Image Log Initialization at block 0  offset 0. 
+[2025/08/02@14:24:47.330-0300] P-22252      T-10536 I DBUTIL   : (14867) Procopy -newinstance Created a new database GUID. 
+[2025/08/02@14:24:47.331-0300] P-22252      T-10536 I DBUTIL   : (15109) At Database close the number of live transactions is 0. 
+[2025/08/02@14:24:47.331-0300] P-22252      T-10536 I DBUTIL   : (15743) Before Image Log Completion at Block 0 Offset 2639. 
+[2025/08/02@14:24:47.332-0300] P-22252      T-10536 I DBUTIL   : (334)   procopy get default SQL DBA session end. 
+
+                Sat Aug  2 14:25:51 2025
+[2025/08/02@14:25:51.292-0300] P-25392      T-13416 I ABL      : (451)   Single-user session begin for anaha on CON:. 
+[2025/08/02@14:25:51.293-0300] P-25392      T-13416 I ABL      : (15321) Before Image Log Initialization at block 0  offset 2639. 
+[2025/08/02@14:25:51.321-0300] P-25392      T-13416 I ABL      : (7129)  Usr 0 set name to anaha. 
+[2025/08/02@14:38:04.474-0300] P-25392      T-13416 I ABL      : (15109) At Database close the number of live transactions is 0. 
+[2025/08/02@14:38:04.474-0300] P-25392      T-13416 I ABL      : (15743) Before Image Log Completion at Block 4 Offset 2448. 
+[2025/08/02@14:38:04.476-0300] P-25392      T-13416 I ABL      : (334)   Single-user session end. 
+
+                Sat Aug  2 14:43:08 2025
+[2025/08/02@14:43:08.904-0300] P-18092      T-24788 I ABL      : (451)   Single-user session begin for anaha on CON:. 
+[2025/08/02@14:43:08.905-0300] P-18092      T-24788 I ABL      : (15321) Before Image Log Initialization at block 4  offset 2448. 
+[2025/08/02@14:43:08.921-0300] P-18092      T-24788 I ABL      : (7129)  Usr 0 set name to anaha. 
+[2025/08/02@15:02:14.459-0300] P-18092      T-24788 I ABL      : (15109) At Database close the number of live transactions is 0. 
+[2025/08/02@15:02:14.459-0300] P-18092      T-24788 I ABL      : (15743) Before Image Log Completion at Block 7 Offset 3061. 
+[2025/08/02@15:02:14.460-0300] P-18092      T-24788 I ABL      : (334)   Single-user session end. 
+
+                Sat Aug  2 15:06:44 2025
+[2025/08/02@15:06:44.494-0300] P-19052      T-14652 I ABL      : (451)   Single-user session begin for anaha on CON:. 
+[2025/08/02@15:06:44.495-0300] P-19052      T-14652 I ABL      : (15321) Before Image Log Initialization at block 7  offset 3061. 
+[2025/08/02@15:06:44.505-0300] P-19052      T-14652 I ABL      : (7129)  Usr 0 set name to anaha. 
+[2025/08/02@15:24:57.575-0300] P-19052      T-14652 I ABL      : (15109) At Database close the number of live transactions is 0. 
+[2025/08/02@15:24:57.575-0300] P-19052      T-14652 I ABL      : (15743) Before Image Log Completion at Block 16 Offset 595. 
+[2025/08/02@15:24:57.578-0300] P-19052      T-14652 I ABL      : (334)   Single-user session end. 
+
+                Sat Aug  2 15:29:02 2025
+[2025/08/02@15:29:02.339-0300] P-18524      T-12224 I ABL      : (451)   Single-user session begin for anaha on CON:. 
+[2025/08/02@15:29:02.340-0300] P-18524      T-12224 I ABL      : (15321) Before Image Log Initialization at block 16  offset 595. 
+[2025/08/02@15:29:02.353-0300] P-18524      T-12224 I ABL      : (7129)  Usr 0 set name to anaha. 
