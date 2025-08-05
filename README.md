@@ -12,10 +12,16 @@ A aplicação oferece uma interface simples e funcional, com foco na integridade
 
 ## 2. Execução e Estrutura
 
-### Requisitos
-Para executar corretamente o projeto em sua máquina local, é necessário que os seguintes componentes estejam previamente instalados:
-[JAVA JDK 20.0.2](https://jdk.java.net/archive/)
-[Progress 4gl](https://www.progress.com/oedk)
+### Pré-requisitos para Execução do Projeto
+Para executar corretamente o projeto em sua máquina local, é necessário que os seguintes componentes estejam previamente instalados:<br>
+- [JAVA Development Kit - JDK 20.0.2](https://jdk.java.net/archive/)
+- [Progress OpenEdge (4GL)](https://www.progress.com/oedk)
+
+Certifique-se de que ambas as ferramentas estejam devidamente configuradas nas variáveis de ambiente do sistema operacional.
+
+### Instalando Projeto
+
+
 
 ### Como executar o projeto
 
