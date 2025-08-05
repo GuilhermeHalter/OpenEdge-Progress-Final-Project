@@ -21,7 +21,7 @@ Certifique-se de que ambas as ferramentas estejam devidamente configuradas nas v
 
 ### Instalando Projeto
 
-
+![GitHubZip](media/Image1.png)
 
 ### Como executar o projeto
 
