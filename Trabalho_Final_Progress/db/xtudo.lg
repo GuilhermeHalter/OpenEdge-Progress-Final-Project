@@ -114,3 +114,19 @@
 [2025/08/03@22:04:15.195-0300] P-28260      T-25744 I ABL      : (451)   Single-user session begin for anaha on CON:. 
 [2025/08/03@22:04:15.196-0300] P-28260      T-25744 I ABL      : (15321) Before Image Log Initialization at block 30  offset 3281. 
 [2025/08/03@22:04:15.212-0300] P-28260      T-25744 I ABL      : (7129)  Usr 0 set name to anaha. 
+[2025/08/03@22:31:25.318-0300] P-28260      T-25744 I ABL      : (15109) At Database close the number of live transactions is 0. 
+[2025/08/03@22:31:25.318-0300] P-28260      T-25744 I ABL      : (15743) Before Image Log Completion at Block 30 Offset 3281. 
+[2025/08/03@22:31:25.320-0300] P-28260      T-25744 I ABL      : (334)   Single-user session end. 
+
+                Mon Aug  4 13:43:32 2025
+[2025/08/04@13:43:32.832-0300] P-16768      T-12328 I ABL      : (451)   Single-user session begin for anaha on CON:. 
+[2025/08/04@13:43:32.834-0300] P-16768      T-12328 I ABL      : (15321) Before Image Log Initialization at block 30  offset 3281. 
+[2025/08/04@13:43:32.858-0300] P-16768      T-12328 I ABL      : (7129)  Usr 0 set name to anaha. 
+[2025/08/04@17:16:31.289-0300] P-16768      T-12328 I ABL      : (15109) At Database close the number of live transactions is 0. 
+[2025/08/04@17:16:31.289-0300] P-16768      T-12328 I ABL      : (15743) Before Image Log Completion at Block 30 Offset 3385. 
+[2025/08/04@17:16:31.291-0300] P-16768      T-12328 I ABL      : (334)   Single-user session end. 
+
+                Tue Aug  5 13:44:41 2025
+[2025/08/05@13:44:41.779-0300] P-1288       T-14684 I ABL      : (451)   Single-user session begin for anaha on CON:. 
+[2025/08/05@13:44:41.781-0300] P-1288       T-14684 I ABL      : (15321) Before Image Log Initialization at block 30  offset 3385. 
+[2025/08/05@13:44:41.799-0300] P-1288       T-14684 I ABL      : (7129)  Usr 0 set name to anaha. 

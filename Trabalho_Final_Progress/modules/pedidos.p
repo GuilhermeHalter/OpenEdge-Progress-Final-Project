@@ -20,16 +20,44 @@ DEFINE BUTTON bt-sair LABEL "Sair" AUTO-ENDKEY.
 DEFINE VARIABLE cAction AS CHARACTER NO-UNDO.
 
 DEFINE QUERY q-pedidos FOR Pedidos, Clientes, Cidades SCROLLING.
-DEFINE QUERY q-itens FOR itens, produtos SCROLLING.
+
+/*Variaveis Itens*/
+
+DEFINE VARIABLE iCodProduto AS INTEGER NO-UNDO.
+DEFINE VARIABLE cNomProduto AS CHARACTER NO-UNDO.
+DEFINE VARIABLE iNumQuantidade AS INTEGER NO-UNDO.
+DEFINE VARIABLE dValTotal AS DECIMAL NO-UNDO.
+
+
+DEFINE TEMP-TABLE ttItens NO-UNDO
+    FIELD CodProduto    AS INTEGER
+    FIELD NomProduto    AS CHARACTER
+    FIELD NumQuantidade AS INTEGER
+    FIELD ValUnitario   AS DECIMAL
+    FIELD ValTotal      AS DECIMAL
+    INDEX id-item IS PRIMARY UNIQUE CodProduto.
+    
+DEFINE QUERY q-itens FOR ttItens SCROLLING.
 
 DEFINE BROWSE b-itens QUERY q-itens DISPLAY
-    Itens.CodItem
-    Itens.CodProduto
-    Produto.NomProduto
-    Itens.NumQuantidade
-    Produto.ValProduto
-    Itens.ValTotal LABEL "Total"
+    ttItens.CodProduto
+    ttItens.NomProduto
+    ttItens.NumQuantidade
+    ttItens.ValUnitario
+    ttItens.ValTotal LABEL "Total"
     WITH SEPARATORS 10 DOWN SIZE 120 BY 10.
+
+DEFINE FRAME f-itens
+    iCodProduto LABEL "Produto" COLON 20
+    cNomProduto NO-LABEL 
+    iNumQuantidade LABEL "Quantidade"  COLON 20
+    dValTotal LABEL "Valor Total "COLON 20
+    bt-salvar   COLON 20
+    bt-cancelar  COLON 20
+    WITH SIDE-LABELS SIZE 100 BY 10
+        VIEW-AS DIALOG-BOX TITLE "Item".
+    
+/*FIM Variaveis Itens*/   
 
 DEFINE BUFFER b-pedidos FOR Pedidos.
 DEFINE BUFFER b-clientes FOR Clientes.
@@ -60,6 +88,9 @@ DEFINE FRAME f-pedidos
     bt-deletarItem
     WITH SIDE-LABELS SIZE 150 BY 23
         VIEW-AS DIALOG-BOX TITLE "Pedidos".
+
+     
+
 
 ON 'choose' OF bt-primeiro 
 DO:
@@ -134,7 +165,30 @@ DO:
     RUN pi-mostra.
 END.
 
-OPEN QUERY q-itens FOR EACH itens NO-LOCK, EACH produtos WHERE produtos.CodProduto = itens.CodProduto NO-LOCK.
+/*Triggers Itens*/
+
+ON 'CHOOSE' OF bt-adicionarItem 
+DO:
+    ASSIGN
+        iCodProduto    = 0
+        cNomProduto    = ""
+        iNumQuantidade = 0
+        dValTotal      = 0.
+    DISPLAY iCodProduto cNomProduto iNumQuantidade dValTotal WITH FRAME f-itens.
+    ENABLE iCodProduto iNumQuantidade bt-cancelar bt-salvar WITH FRAME f-itens.
+    ON 'leave' OF iCodProduto 
+    DO:
+        FOR EACH Produtos WHERE Produtos.CodProduto = INPUT iCodProduto NO-LOCK:
+            DISPLAY Produtos.NomProduto @ cNomProduto WITH FRAME f-itens.
+        END.
+    END.
+    
+   WAIT-FOR "WINDOW-CLOSE" OF FRAME f-itens.
+   HIDE FRAME f-itens.
+   ENABLE bt-adicionarItem WITH FRAME f-pedidos.
+                                 
+END.
+
 RUN pi-abrirQuery.         
 RUN pi-habilitaBotoes (INPUT TRUE).
 DISPLAY WITH FRAME f-pedidos.
@@ -152,7 +206,7 @@ PROCEDURE pi-abrirQuery:
     OPEN QUERY q-pedidos
         FOR EACH Pedidos,
             FIRST Clientes WHERE Clientes.CodCliente = Pedidos.CodCliente,
-            FIRST Cidades WHERE Cidades.CodCidade = Cliente.CodCidade.
+            FIRST Cidades WHERE Cidades.CodCidade = Clientes.CodCidade.
         
     REPOSITION q-pedidos TO ROWID rRecord NO-ERROR.
 END PROCEDURE.
