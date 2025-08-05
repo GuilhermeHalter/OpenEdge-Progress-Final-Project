@@ -21,8 +21,12 @@ Certifique-se de que ambas as ferramentas estejam devidamente configuradas nas v
 
 ### 2.2 Instalando Projeto
 **Instalando Projeto via .Zip:**<br>
-Faça o download do arquivo .Zip do projeto no GitHub, e deixe-o no `disco-local (c:)` do seu pc 
+Faça o download do arquivo .Zip do projeto no GitHub 
 ![GitHubZip](media/Image1.png)
+
+Estraia tudo no `disco-local (c:)` do seu PC
+
+![DiscoC](media/Image2.png)
 
 
 
