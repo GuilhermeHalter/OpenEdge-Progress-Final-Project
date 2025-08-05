@@ -11,17 +11,20 @@ A aplicação oferece uma interface simples e funcional, com foco na integridade
 ## Explicação de como o sistema funciona
 
 ## 2. Execução e Estrutura
-
-### Pré-requisitos para Execução do Projeto
+[2.1 Pré-requisitos para Execução do Projeto](###2.1-Pré-requisitos-para-Execução-do-Projeto)
+### 2.1 Pré-requisitos para Execução do Projeto
 Para executar corretamente o projeto em sua máquina local, é necessário que os seguintes componentes estejam previamente instalados:<br>
 - [JAVA Development Kit - JDK 20.0.2](https://jdk.java.net/archive/)
 - [Progress OpenEdge (4GL)](https://www.progress.com/oedk)
 
 Certifique-se de que ambas as ferramentas estejam devidamente configuradas nas variáveis de ambiente do sistema operacional.
 
-### Instalando Projeto
-
+### 2.2 Instalando Projeto
+**Instalando Projeto via .Zip:**<br>
+Faça o download do arquivo .Zip do projeto no GitHub, e deixe-o no `disco-local (c:)` do seu pc 
 ![GitHubZip](media/Image1.png)
+
+
 
 ### Como executar o projeto
 
