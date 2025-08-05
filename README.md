@@ -20,8 +20,8 @@ Para executar corretamente o projeto em sua máquina local, é necessário que o
 Certifique-se de que ambas as ferramentas estejam devidamente configuradas nas variáveis de ambiente do sistema operacional.
 
 ### 2.2 Instalando Projeto
-**Instalando Projeto via .Zip:**<br>
-Faça o download do arquivo .Zip do projeto no GitHub 
+**Instalando Projeto via `.Zip`:**<br>
+Acesse o repositório no GitHub e faça o download do projeto compactado em `.zip`.
 ![GitHubZip](media/Image1.png)
 
 Estraia tudo no `disco-local (c:)` do seu PC
