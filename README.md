@@ -124,9 +124,10 @@ A subpasta `DumpDados` armazena os arquivos `.d`, que correspondem aos dumps dos
 ### 2.3 Instalando Projeto
 **Instalando Projeto via `.Zip`:** <br>
 Acesse o repositório no GitHub e faça o download do projeto compactado em `.zip`.
+
 ![GitHubZip](media/Image1.png)
 
-Estraia tudo no `disco-local (c:)` do seu PC
+Estraia as pasta `Trabalho_Final_Progress` e a pasta `dados` no diretorio `c:` do seu dispositivo.
 
 ![DiscoC](media/Image2.png)
 
