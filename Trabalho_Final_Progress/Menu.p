@@ -17,7 +17,7 @@ DEFINE FRAME f-Menu
     bt-sair AT 100 SKIP(1)
     bt-relatClientes AT 10
     bt-relatPedidos
-    WITH SIZE 120 BY 20
+    WITH SIZE 120 BY 10
         VIEW-AS DIALOG-BOX TITLE "Hamburgueria Xtudo".
         
 ON 'choose' OF bt-cidades 
