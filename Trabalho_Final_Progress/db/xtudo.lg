@@ -138,3 +138,42 @@
 [2025/08/07@08:10:46.806-0300] P-2676       T-2404  I ABL      : (451)   Single-user session begin for anaha on CON:. 
 [2025/08/07@08:10:46.807-0300] P-2676       T-2404  I ABL      : (15321) Before Image Log Initialization at block 30  offset 3489. 
 [2025/08/07@08:10:46.830-0300] P-2676       T-2404  I ABL      : (7129)  Usr 0 set name to anaha. 
+[2025/08/07@17:02:19.775-0300] P-2676       T-2404  I ABL      : (15109) At Database close the number of live transactions is 0. 
+[2025/08/07@17:02:19.776-0300] P-2676       T-2404  I ABL      : (15743) Before Image Log Completion at Block 30 Offset 7833. 
+[2025/08/07@17:02:19.778-0300] P-2676       T-2404  I ABL      : (334)   Single-user session end. 
+
+                Fri Aug  8 15:24:42 2025
+[2025/08/08@15:24:42.116-0300] P-21612      T-15156 I ABL      : (451)   Single-user session begin for anaha on CON:. 
+[2025/08/08@15:24:42.118-0300] P-21612      T-15156 I ABL      : (15321) Before Image Log Initialization at block 30  offset 7833. 
+[2025/08/08@15:24:42.144-0300] P-21612      T-15156 I ABL      : (7129)  Usr 0 set name to anaha. 
+[2025/08/08@15:38:08.623-0300] P-21612      T-15156 I ABL      : (8010)   tabauth_create: Failure creating _systabauth (5) 
+[2025/08/08@15:38:08.624-0300] P-21612      T-15156 F ABL      : (6536)  SYSTEM ERROR: Failure updating schema during Add Table operation (id=3). 
+[2025/08/08@15:38:18.463-0300] P-21612      T-15156 I ABL      : (334)   Single-user session end. 
+
+                Fri Aug  8 15:38:24 2025
+[2025/08/08@15:38:24.384-0300] P-4368       T-21212 I ABL      : (451)   Single-user session begin for anaha on CON:. 
+[2025/08/08@15:38:24.385-0300] P-4368       T-21212 I ABL      : (5326)  Begin Physical Redo Phase at 0 . 
+[2025/08/08@15:38:24.389-0300] P-4368       T-21212 I ABL      : (7161)  Physical Redo Phase Completed at blk 32 off 8175 upd 109. 
+[2025/08/08@15:38:24.389-0300] P-4368       T-21212 I ABL      : (13547) At end of Physical redo, transaction table size is 5440. 
+[2025/08/08@15:38:24.390-0300] P-4368       T-21212 I ABL      : (7163)  Begin Physical Undo 1 transactions at block 33 offset 51 
+[2025/08/08@15:38:24.390-0300] P-4368       T-21212 I ABL      : (5331)  Physical Undo Phase Completed at 30 . 
+[2025/08/08@15:38:24.390-0300] P-4368       T-21212 I ABL      : (7162)  Begin Logical Undo Phase, 1 incomplete transactions are being backed out. 
+[2025/08/08@15:38:24.390-0300] P-4368       T-21212 I ABL      : (11231) Logical Undo Phase begin at Block 30 Offset 7958. 
+[2025/08/08@15:38:24.390-0300] P-4368       T-21212 I ABL      : (12095) Logical Undo Phase completed at block 30, offset 7958. 
+[2025/08/08@15:38:24.396-0300] P-4368       T-21212 I ABL      : (7129)  Usr 0 set name to anaha. 
+[2025/08/08@15:38:38.145-0300] P-4368       T-21212 I ABL      : (15109) At Database close the number of live transactions is 0. 
+[2025/08/08@15:38:38.146-0300] P-4368       T-21212 I ABL      : (15743) Before Image Log Completion at Block 34 Offset 6744. 
+[2025/08/08@15:38:38.148-0300] P-4368       T-21212 I ABL      : (334)   Single-user session end. 
+
+                Fri Aug  8 15:38:43 2025
+[2025/08/08@15:38:43.236-0300] P-3492       T-20112 I ABL      : (451)   Single-user session begin for anaha on CON:. 
+[2025/08/08@15:38:43.236-0300] P-3492       T-20112 I ABL      : (15321) Before Image Log Initialization at block 34  offset 6744. 
+[2025/08/08@15:38:43.243-0300] P-3492       T-20112 I ABL      : (7129)  Usr 0 set name to anaha. 
+[2025/08/08@18:31:20.284-0300] P-3492       T-20112 I ABL      : (15109) At Database close the number of live transactions is 0. 
+[2025/08/08@18:31:20.286-0300] P-3492       T-20112 I ABL      : (15743) Before Image Log Completion at Block 39 Offset 3998. 
+[2025/08/08@18:31:20.291-0300] P-3492       T-20112 I ABL      : (334)   Single-user session end. 
+
+                Sat Aug  9 08:48:13 2025
+[2025/08/09@08:48:13.080-0300] P-8436       T-22668 I ABL      : (451)   Single-user session begin for anaha on CON:. 
+[2025/08/09@08:48:13.082-0300] P-8436       T-22668 I ABL      : (15321) Before Image Log Initialization at block 39  offset 3998. 
+[2025/08/09@08:48:13.102-0300] P-8436       T-22668 I ABL      : (7129)  Usr 0 set name to anaha. 

@@ -1,6 +1,15 @@
 /*Pedidos.p*/
+USING Progress.Json.ObjectModel.JsonArray FROM PROPATH.
+USING Progress.Json.ObjectModel.JsonObject FROM PROPATH.
 
 CURRENT-WINDOW:WIDTH = 251.
+
+DEFINE VARIABLE c-action AS CHARACTER NO-UNDO.
+DEFINE VARIABLE c-actionItem AS CHARACTER NO-UNDO.
+
+DEFINE VARIABLE c-acao AS CHARACTER NO-UNDO.
+DEFINE VARIABLE l-selecao AS LOGICAL NO-UNDO.
+DEFINE VARIABLE i-seqItem AS INTEGER NO-UNDO.
 
 DEFINE BUTTON bt-primeiro LABEL "<<".
 DEFINE BUTTON bt-anterior LABEL "<".
@@ -9,61 +18,37 @@ DEFINE BUTTON bt-ultimo LABEL ">>".
 DEFINE BUTTON bt-adicionar LABEL "Adicionar".
 DEFINE BUTTON bt-editar LABEL "Modificar".
 DEFINE BUTTON bt-deletar LABEL "Eliminar".
-DEFINE BUTTON bt-adicionarItem LABEL "Adicionar".
-DEFINE BUTTON bt-editarItem LABEL "Modificar".
-DEFINE BUTTON bt-deletarItem LABEL "Eliminar".
 DEFINE BUTTON bt-salvar LABEL "Salvar".
 DEFINE BUTTON bt-cancelar LABEL "Cancelar".
 DEFINE BUTTON bt-exportar LABEL "Exportar".
 DEFINE BUTTON bt-sair LABEL "Sair" AUTO-ENDKEY.
 
-DEFINE VARIABLE cAction AS CHARACTER NO-UNDO.
-
-DEFINE QUERY q-pedidos FOR Pedidos, Clientes, Cidades SCROLLING.
-
-/*Variaveis Itens*/
-
-DEFINE VARIABLE iCodProduto AS INTEGER  NO-UNDO.
-DEFINE VARIABLE cNomProduto AS CHARACTER NO-UNDO.
-DEFINE VARIABLE iNumQuantidade AS INTEGER NO-UNDO.
-DEFINE VARIABLE dValTotal AS DECIMAL NO-UNDO.
-
-
-DEFINE TEMP-TABLE ttItens NO-UNDO
-    FIELD CodItem       AS INTEGER
-    FIELD CodProduto    AS INTEGER
-    FIELD NomProduto    AS CHARACTER FORMAT "x(60)"
-    FIELD NumQuantidade AS INTEGER
-    FIELD ValUnitario   AS DECIMAL
-    FIELD ValTotal      AS DECIMAL
-    INDEX id-item IS PRIMARY UNIQUE CodItem.
-    
-DEFINE QUERY q-itens FOR ttItens SCROLLING.
-
-DEFINE BROWSE b-itens QUERY q-itens DISPLAY
-    ttItens.CodItem LABEL "Item"
-    ttItens.CodProduto LABEL "Codigo"
-    ttItens.NomProduto LABEL "Produto" WIDTH 50
-    ttItens.NumQuantidade LABEL "Quantidade"
-    ttItens.ValUnitario LABEL "Valor"
-    ttItens.ValTotal LABEL "Total"
-    WITH SEPARATORS 10 DOWN SIZE 120 BY 10.
-
-DEFINE FRAME f-itens
-    iCodProduto LABEL "Produto" COLON 20
-    cNomProduto NO-LABEL 
-    iNumQuantidade LABEL "Quantidade"  COLON 20
-    dValTotal LABEL "Valor Total "COLON 20
-    bt-salvar   COLON 10
-    bt-cancelar
-    WITH SIDE-LABELS SIZE 100 BY 10
-        VIEW-AS DIALOG-BOX TITLE "Item".
-    
-/*FIM Variaveis Itens*/   
+DEFINE BUTTON bt-adicionarItem LABEL "Adicionar".
+DEFINE BUTTON bt-editarItem LABEL "Modificar".
+DEFINE BUTTON bt-eliminarItem LABEL "Eliminar".
 
 DEFINE BUFFER b-pedidos FOR Pedidos.
 DEFINE BUFFER b-clientes FOR Clientes.
+DEFINE BUFFER b-cidades FOR Cidades.
+DEFINE BUFFER b-itens FOR Itens.
+DEFINE BUFFER bf-itens FOR itens.
+DEFINE BUFFER bf-produtos FOR produtos.
 
+DEFINE QUERY q-pedidos FOR Pedidos, Clientes, Cidades SCROLLING.
+DEFINE QUERY q-itens FOR itens, produtos SCROLLING.
+
+DEFINE BROWSE bw-itens QUERY q-itens NO-LOCK
+    DISPLAY Itens.CodItem
+            Itens.CodProduto
+            Produtos.NomProduto FORMAT "x(40)"
+            Itens.NumQuantidade
+            Produtos.ValProduto
+            Itens.ValTotal
+            WITH SEPARATORS 15 DOWN SIZE 100 BY 10.
+
+          
+
+/*FRAMES*/
 DEFINE FRAME f-pedidos
     bt-primeiro
     bt-anterior
@@ -75,319 +60,298 @@ DEFINE FRAME f-pedidos
     bt-salvar
     bt-cancelar
     bt-exportar
-    bt-sair
-    Pedidos.CodPedido COLON 20
+    bt-sair SKIP(1)            
+    Pedidos.CodPedido COLON 20 
     Pedidos.DatPedido
-    Pedidos.CodCliente COLON 20
-    Clientes.NomCliente NO-LABEL
-    Clientes.CodEndereco  COLON 20
-    Clientes.CodCidade COLON 20
-    Cidades.NomCidade NO-LABEL
+    Pedidos.CodCliente LABEL "Cliente" COLON 20 
+    Clientes.NomCliente NO-LABELS
+    Clientes.CodEndereco COLON 20
+    Clientes.CodCidade COLON 20 
+    Cidades.NomCidade NO-LABELS
     Pedidos.Observacao COLON 20 SKIP(1)
-    b-itens COLON 1 SKIP(0.5)
-    bt-adicionarItem  COLON 1 
+    bw-itens COLON 1 SKIP
+    bt-adicionarItem COLON 1
     bt-editarItem
-    bt-deletarItem
-    WITH SIDE-LABELS SIZE 150 BY 23
+    bt-eliminarItem
+    WITH SIDE-LABELS THREE-D SIZE 120 BY 25
         VIEW-AS DIALOG-BOX TITLE "Pedidos".
+
+
+/*FIM FRAMES*/
 
 ON 'choose' OF bt-primeiro 
 DO:
     GET FIRST q-pedidos.
     RUN pi-mostra.
+    RUN pi-mostraItens.
 END.
 
 ON 'choose' OF bt-anterior 
 DO:
     GET PREV q-pedidos.
+    IF NOT AVAIL Pedidos THEN
+    DO:
+        GET LAST q-pedidos.        
+    END.
     RUN pi-mostra.
+    RUN pi-mostraItens.
 END.
 
 ON 'choose' OF bt-proximo 
 DO:
     GET NEXT q-pedidos.
+    IF NOT AVAIL Pedidos THEN
+    DO:
+        GET FIRST q-pedidos.        
+    END.
     RUN pi-mostra.
+    RUN pi-mostraItens.
 END.
 
 ON 'choose' OF bt-ultimo 
 DO:
     GET LAST q-pedidos.
     RUN pi-mostra.
+    RUN pi-mostraItens.
 END.
 
-/*Adicionar*/
 ON 'choose' OF bt-adicionar 
 DO:
-    ASSIGN cAction = "add".
-    RUN pi-habilitaBotoes (INPUT FALSE).
-    RUN pi-habilitaCampos (INPUT TRUE).
-
-    CLEAR FRAME f-pedidos.
-
-    /* Limpa a temp-table de itens e o browse */
-    EMPTY TEMP-TABLE ttItens.
-    IF QUERY q-itens:IS-OPEN THEN
-        CLOSE QUERY q-itens.
-    OPEN QUERY q-itens FOR EACH ttItens.
-
-    DISPLAY NEXT-VALUE(seqPedido) @ Pedidos.CodPedido WITH FRAME f-pedidos. 
-    DISPLAY TODAY @ Pedidos.DatPedido WITH FRAME f-pedidos.
-END.
- /*FIM Adicionar*/
-
-ON 'value-changed' OF Pedidos.CodCliente
-DO:
-    DEFINE VARIABLE cNomeCliente AS CHARACTER NO-UNDO.
-    DEFINE VARIABLE cEndereco AS CHARACTER NO-UNDO.
-    DEFINE VARIABLE cNomeCidade AS CHARACTER NO-UNDO.
-
-
-    FIND FIRST Clientes WHERE Clientes.CodCliente = INTEGER(Pedidos.CodCliente:SCREEN-VALUE) NO-LOCK NO-ERROR.
-    DISPLAY Clientes.CodCidade @ Clientes.CodCidade WITH FRAME f-pedidos.
-    FIND FIRST Cidades WHERE Cidades.CodCidade = INTEGER(Clientes.CodCidade:SCREEN-VALUE) NO-LOCK NO-ERROR.
+    ASSIGN c-action = "add".
+    RUN pi-habilitaBotoes(INPUT FALSE).
+    RUN pi-habilitaCampos(INPUT TRUE).
     
-    IF AVAILABLE Clientes THEN DO:
-        cNomeCliente = Cliente.NomCliente.
-        cEndereco = Cliente.CodEndereco.
-        IF AVAILABLE Cidades THEN
-            cNomeCidade = Cidades.NomCidade.
-        ELSE
-            cNomeCidade = "invalid".
-        END. 
-    ELSE DO:
-        cNomeCliente = "invalid".
-        cEndereco = "invalid".
-    END.
-
-    DISPLAY cNomeCliente @ Cliente.NomCliente
-            cEndereco @ Cliente.CodEndereco
-            cNomeCidade @ Cidades.NomCidade
+    CLEAR FRAME f-pedidos.
+    CLOSE QUERY q-itens.
+    
+    DISPLAY NEXT-VALUE(seqPedido) @ Pedidos.CodPedido
+            TODAY @ Pedidos.DatPedido
             WITH FRAME f-pedidos.
 END.
 
+ON 'choose' OF bt-editar 
+DO:
+    ASSIGN c-action = "edit".
+    RUN pi-habilitaBotoes(INPUT FALSE).
+    RUN pi-habilitaCampos(INPUT TRUE).
+    
+    RUN pi-mostra.
+END.
+
+ON 'choose' OF bt-deletar 
+DO:
+    MESSAGE "Deseja mesmo excluir esse pedido e seus itens ?"
+        UPDATE l-selecao VIEW-AS ALERT-BOX
+        BUTTONS YES-NO TITLE "Excluir".
+    IF l-selecao = YES THEN
+    DO:
+        FIND FIRST b-pedidos EXCLUSIVE-LOCK
+            WHERE b-pedidos.CodPedido = Pedidos.CodPedido.
+            
+        FOR EACH b-itens EXCLUSIVE-LOCK
+            WHERE b-itens.codpedido = b-pedidos.CodPedido:
+            DELETE b-itens.
+        END.
+        DELETE b-pedidos.
+        
+        MESSAGE "Pedido excluido !" VIEW-AS ALERT-BOX INFORMATION BUTTONS OK.
+        
+        APPLY "choose" TO bt-proximo.
+    END.
+END.
+
+ON 'choose' OF bt-salvar 
+DO:
+    DEFINE VARIABLE l-valido AS LOGICAL NO-UNDO.
+    RUN pi-validaCliente (INPUT Pedidos.CodCliente:SCREEN-VALUE,
+                          OUTPUT l-valido).
+    IF l-valido = NO THEN
+    DO:
+        RETURN NO-APPLY.    
+    END.
+    
+    IF c-action = "add" THEN
+    DO:
+        CREATE b-pedidos.
+        ASSIGN b-pedidos.CodPedido = INPUT Pedidos.CodPedido.
+    END.
+    IF c-action = "edit" THEN
+    DO:
+        FIND FIRST b-pedidos EXCLUSIVE-LOCK
+            WHERE b-pedidos.CodPedido = Pedidos.CodPedido.
+    END.
+    
+    ASSIGN b-pedidos.CodCliente = INPUT Pedidos.CodCliente
+           b-pedidos.DatPedido = INPUT Pedidos.DatPedido
+           b-pedidos.Observacao = INPUT Pedidos.Observacao.
+           
+    
+    RUN pi-habilitaBotoes(INPUT TRUE).
+    RUN pi-habilitaCampos(INPUT FALSE).
+    RUN pi-abrirQuery.
+    
+    APPLY "choose" TO bt-ultimo.
+END.
+
+
 ON 'choose' OF bt-cancelar 
 DO:
-    RUN pi-habilitaBotoes (INPUT TRUE).
-    RUN pi-habilitaCampos (INPUT FALSE).
+    RUN pi-habilitaBotoes(INPUT TRUE).
+    RUN pi-habilitaCampos(INPUT FALSE).
     RUN pi-mostra.
+    RUN pi-mostraItens.
 END.
 
-ON 'choose' OF bt-salvar IN FRAME f-pedidos
+ON 'leave' OF Pedidos.CodCliente 
 DO:
-    DEFINE VARIABLE iCodPedido   AS INTEGER NO-UNDO.
-    DEFINE VARIABLE iCodCliente  AS INTEGER NO-UNDO.
-    DEFINE VARIABLE dValPedido   AS DECIMAL NO-UNDO.
-    DEFINE VARIABLE dtPedido     AS DATE NO-UNDO.
-    DEFINE VARIABLE cObs         AS CHARACTER NO-UNDO.
-    DEFINE VARIABLE iQtdItens    AS INTEGER NO-UNDO.
-
-    /* Captura os valores da tela */
-    ASSIGN
-        iCodPedido  = INTEGER(Pedidos.CodPedido:SCREEN-VALUE)
-        iCodCliente = INTEGER(Pedidos.CodCliente:SCREEN-VALUE)
-        dtPedido    = DATE(Pedidos.DatPedido:SCREEN-VALUE)
-        cObs        = Pedidos.Observacao:SCREEN-VALUE.
-
-    /* Validação dos campos obrigatórios */
-    IF iCodCliente = 0 THEN DO:
-        MESSAGE "Código do cliente é obrigatório." VIEW-AS ALERT-BOX ERROR.
-        RETURN.
-    END.
-
-    IF dtPedido = ? THEN DO:
-        MESSAGE "Data do pedido é obrigatória." VIEW-AS ALERT-BOX ERROR.
-        RETURN.
-    END.
-
-    /* Verifica se existem itens */
-    iQtdItens = 0.
-    FOR EACH ttItens:
-        iQtdItens = iQtdItens + 1.
-    END.
-
-    IF iQtdItens = 0 THEN DO:
-        MESSAGE "Adicione pelo menos um item ao pedido." VIEW-AS ALERT-BOX ERROR.
-        RETURN.
-    END.
-
-    /* Soma o valor total do pedido */
-    dValPedido = 0.
-    FOR EACH ttItens:
-        dValPedido = dValPedido + ttItens.ValTotal.
-    END.
-
-    /* Cria o pedido no banco */
-    CREATE Pedidos.
-    ASSIGN
-        Pedidos.CodPedido   = iCodPedido
-        Pedidos.CodCliente  = iCodCliente
-        Pedidos.DatPedido   = dtPedido
-        Pedidos.ValPedido   = dValPedido
-        Pedidos.Observacao  = cObs.
-
-    /* Salva os itens no banco */
-    FOR EACH ttItens:
-        CREATE Itens.
-        ASSIGN
-            Itens.CodItem       = ttItens.CodItem
-            Itens.CodPedido     = iCodPedido
-            Itens.CodProduto    = ttItens.CodProduto
-            Itens.NumQuantidade = ttItens.NumQuantidade
-            Itens.ValTotal      = ttItens.ValTotal.
-    END.
-
-    /* Confirma operação e limpa temp-table */
-    MESSAGE "Pedido salvo com sucesso!" VIEW-AS ALERT-BOX INFORMATION.
-
-    EMPTY TEMP-TABLE ttItens.
-    CLOSE QUERY q-itens.
-
-    /* Recarrega a query principal */
-    RUN pi-abrirQuery.
-    RUN pi-habilitaBotoes (INPUT TRUE).
-    RUN pi-habilitaCampos (INPUT FALSE).
-    RUN pi-mostra.
-END.
-
-
-
-/*Triggers Itens*/
-
-   
-ON 'value-changed' OF iCodProduto 
-  DO:
-      DEFINE VARIABLE iCodigo AS INTEGER NO-UNDO.
-
-      IF VALID-HANDLE(FRAME f-itens:HANDLE) THEN DO:
-          iCodigo = INTEGER(iCodProduto:SCREEN-VALUE) NO-ERROR.
-           
-          IF iCodigo > 0 THEN DO:
-              FIND Produtos WHERE Produtos.CodProduto = iCodigo NO-LOCK NO-ERROR.
-              IF AVAILABLE Produtos THEN
-                  DISPLAY Produtos.NomProduto @ cNomProduto WITH FRAME f-itens.
-              ELSE
-                  MESSAGE "Produto não encontrado." VIEW-AS ALERT-BOX WARNING.
-          END.
-      END.
-END.
-
-ON 'value-changed' OF iNumQuantidade 
-DO:
-    DEFINE VARIABLE dTotal AS DECIMAL NO-UNDO.
-    FIND Produtos WHERE Produtos.CodProduto = INPUT iCodProduto NO-LOCK NO-ERROR.
-    IF AVAILABLE Produtos THEN
+    DEFINE VARIABLE l-valido AS LOGICAL NO-UNDO.
+    RUN pi-validaCliente (INPUT Pedidos.CodCliente:SCREEN-VALUE,
+                          OUTPUT l-valido).
+    IF l-valido = NO THEN
     DO:
-        ASSIGN dTotal = Produtos.ValProduto * INPUT iNumQuantidade.
-        DISPLAY dTotal @ dValTotal WITH FRAME f-itens.    
+        RETURN NO-APPLY.    
     END.
+    
+    DISPLAY b-clientes.NomCliente @ Clientes.NomCliente
+            b-clientes.CodEndereco @ Clientes.CodEndereco
+            b-cidades.CodCidade @ Clientes.CodCidade
+            b-cidades.NomCidade @ Cidade.NomCidade
+            WITH FRAME f-pedidos.
 END.
 
-ON 'choose' OF bt-cancelar IN FRAME f-itens 
+ON 'choose' OF bt-exportar 
 DO:
-    ASSIGN
-        iCodProduto    = 0
-        cNomProduto    = ""
-        iNumQuantidade = 0
-        dValTotal      = 0.
-
-    DISPLAY iCodProduto
-            cNomProduto
-            iNumQuantidade
-            dValTotal
-            WITH FRAME f-itens.
-
+    DEFINE VARIABLE cArq AS CHARACTER NO-UNDO.
+    DEFINE VARIABLE cArquivo AS CHARACTER NO-UNDO.    
+    DEFINE VARIABLE oPedido AS JsonObject NO-UNDO.
+    DEFINE VARIABLE oItem AS JsonObject NO-UNDO.
+    DEFINE VARIABLE aPedido AS JsonArray NO-UNDO.
+    DEFINE VARIABLE aItem AS JsonArray NO-UNDO.
+    
+    ASSIGN cArq = SESSION:TEMP-DIRECTORY + "pedidos.json"
+           aPedido = NEW JsonArray().
+           
+    FOR EACH Pedidos NO-LOCK:
+        FIND FIRST Clientes NO-LOCK
+            WHERE Clientes.CodCliente = Pedidos.CodCliente NO-ERROR.
+        oPedido = NEW JsonObject().
+        
+        oPedido:ADD("Codigo", STRING(Pedidos.CodPedido)).
+        oPedido:ADD("Data", Pedidos.DatPedido).
+        oPedido:ADD("Cliente", STRING(Pedidos.CodCliente)).
+        
+        IF AVAILABLE Clientes THEN
+        DO:
+            oPedido:ADD("Cidade", STRING(Clientes.CodCidade)).
+            oPedido:ADD("Endereco", Clientes.CodEndereco).
+        END.
+        
+        oPedido:ADD("Observacao", Pedidos.Observacao).
+        aItem = NEW JsonArray().
+        FOR EACH Itens NO-LOCK
+            WHERE Itens.CodPedido = Pedidos.CodPedido:
+            FIND FIRST Produtos NO-LOCK
+                WHERE Produtos.CodProduto = Itens.CodProduto.
+                
+            oItem = NEW JsonObject().
+            oItem:ADD("Item", Itens.CodItem).
+            oItem:ADD("Produto", Itens.CodProduto).
+            oItem:ADD("Nome", Produtos.NomProduto).
+            oItem:ADD("Quantidade", Itens.NumQuantidade).
+            oItem:ADD("Valor Produto", Produtos.ValProduto).
+            oItem:ADD(" Valor Total", Itens.ValTotal).
+            aItem:ADD(oItem).
+        END.
+        
+        oPedido:ADD("Itens", aItem).
+        
+        aPedido:ADD(oPedido).
+    END.
+    aPedido:WriteFile(INPUT cArq, INPUT YES, INPUT "utf-8").
+    OS-COMMAND NO-WAIT VALUE("notepad.exe " + cArq).
+    
+    ASSIGN cArquivo = SESSION:TEMP-DIRECTORY + "pedidos.csv".
+    OUTPUT TO VALUE(cArquivo).
+    FOR EACH Pedidos NO-LOCK:
+        FIND FIRST Clientes NO-LOCK
+            WHERE Clientes.CodCliente = Pedidos.CodCliente NO-ERROR.
+        PUT UNFORMATTED Pedidos.CodPedido ";"
+                        Pedidos.DatPedido ";"
+                        Pedidos.CodCliente ";"
+                        Clientes.CodEndereco ";"
+                        Pedidos.Observacao.
+        PUT UNFORMATTED SKIP.
+    END.
+    OUTPUT CLOSE.
+    OS-COMMAND NO-WAIT VALUE("notepad.exe " + cArquivo).
 END.
 
-ON 'choose' OF bt-salvar IN FRAME f-itens 
+
+/*------Itens Frame------*/
+
+ON 'choose' OF bt-adicionarItem
 DO:
-    DEFINE VARIABLE dUnitario         AS DECIMAL NO-UNDO.
-    DEFINE VARIABLE iProximoCodItem   AS INTEGER NO-UNDO.
-    DEFINE VARIABLE iUltimoCodItemBanco AS INTEGER NO-UNDO.
-    DEFINE VARIABLE iMaiorCodTemp     AS INTEGER NO-UNDO.
-    DEFINE VARIABLE iCount            AS INTEGER NO-UNDO.
+    ASSIGN c-actionItem = "add".
+   
+    RUN pi-mostraFrameItem.       
+    RUN pi-abrirQuery.
+    
+END.
 
-    ASSIGN 
-        iCodProduto    = INTEGER(iCodProduto:SCREEN-VALUE IN FRAME f-itens)
-        cNomProduto    = cNomProduto:SCREEN-VALUE IN FRAME f-itens
-        iNumQuantidade = INTEGER(iNumQuantidade:SCREEN-VALUE IN FRAME f-itens)
-        dValTotal      = DECIMAL(dValTotal:SCREEN-VALUE IN FRAME f-itens).
-
-    FIND Produtos WHERE Produtos.CodProduto = iCodProduto NO-LOCK NO-ERROR.
-    IF NOT AVAILABLE Produtos THEN DO:
-        MESSAGE "Produto não encontrado." VIEW-AS ALERT-BOX ERROR.
+ON 'choose' OF bt-editarItem
+DO:
+    /* Verifica se existe um registro atual na tabela Itens (que reflete a query q-itens) */
+    IF NOT AVAILABLE Itens THEN DO:
+        MESSAGE "Nenhum item selecionado para editar!" VIEW-AS ALERT-BOX.
         RETURN.
     END.
 
-    dUnitario = Produtos.ValProduto.
+    /* Obtém o CodItem do registro atual da tabela Itens */
+    ASSIGN i-seqItem = Itens.CodItem.
 
-    /* Contar registros na temp-table e achar maior código */
-    iCount = 0.
-    iMaiorCodTemp = 0.
+    ASSIGN c-actionItem = "edit".
 
-    FOR EACH ttItens NO-LOCK:
-        iCount = iCount + 1.
-        IF ttItens.CodItem > iMaiorCodTemp THEN
-            iMaiorCodTemp = ttItens.CodItem.
-    END.
-
-    IF iCount = 0 THEN DO:
-        FIND LAST Itens NO-LOCK NO-ERROR.
-        IF AVAILABLE Itens THEN
-            iUltimoCodItemBanco = Itens.CodItem.
-        ELSE
-            iUltimoCodItemBanco = 0.
-
-        iProximoCodItem = iUltimoCodItemBanco + 1.
-    END.
-    ELSE DO:
-        iProximoCodItem = iMaiorCodTemp + 1.
-    END.
-
-    /* Cria o registro na temp-table com o código calculado */
-    CREATE ttItens.
-    ASSIGN
-        ttItens.CodItem      = iProximoCodItem
-        ttItens.CodProduto   = iCodProduto
-        ttItens.NomProduto   = cNomProduto
-        ttItens.NumQuantidade = iNumQuantidade
-        ttItens.ValUnitario  = dUnitario
-        ttItens.ValTotal     = dUnitario * iNumQuantidade.
-
-    /* Atualiza o browse */
-    IF NOT QUERY q-itens:IS-OPEN THEN
-        OPEN QUERY q-itens FOR EACH ttItens.
-    ELSE DO:
-        CLOSE QUERY q-itens.
-        OPEN QUERY q-itens FOR EACH ttItens.
-    END.
-
-    b-itens:SELECT-ROW(b-itens:NUM-ITERATIONS) IN FRAME f-pedidos.
-
+    RUN pi-mostraFrameItem.
+    RUN pi-abrirQuery.
 END.
 
 
-
-
-ON 'CHOOSE' OF bt-adicionarItem 
+ON 'choose' OF bt-eliminarItem
+ 
 DO:
-    ASSIGN
-        iCodProduto    = 0
-        cNomProduto    = ""
-        iNumQuantidade = 0
-        dValTotal      = 0.
-    DISPLAY iCodProduto cNomProduto iNumQuantidade dValTotal WITH FRAME f-itens.
-    ENABLE iCodProduto iNumQuantidade bt-cancelar bt-salvar WITH FRAME f-itens.
-
-   WAIT-FOR "WINDOW-CLOSE" OF FRAME f-itens.
-   HIDE FRAME f-itens.
-   ENABLE bt-adicionarItem WITH FRAME f-pedidos.
-                                 
+    MESSAGE "Deseja mesmo Excluir o item " itens.codItem "?" UPDATE l-selecao
+        VIEW-AS ALERT-BOX QUESTION BUTTONS YES-NO
+            TITLE "Excluir".
+    IF l-selecao = YES THEN
+    DO:
+        FIND FIRST b-itens EXCLUSIVE-LOCK 
+            WHERE b-itens.CodItem = itens.CodItem
+            AND b-itens.codPedido = itens.CodPedido NO-ERROR.
+        IF AVAILABLE b-itens THEN
+        DO:
+            DELETE b-itens.
+            RUN pi-mostraItens.
+            RUN pi-totalPedido.
+            RUN pi-abrirQuery.
+        END.
+        ELSE
+            MESSAGE "item nao encontrado!"
+                VIEW-AS ALERT-BOX ERROR BUTTONS OK.            
+            
+    END.
 END.
 
-RUN pi-abrirQuery.         
+
+
+/*------FIM Itens Frame------*/
+
+
+RUN pi-abrirQuery.
+RUN pi-mostraItens.
 RUN pi-habilitaBotoes (INPUT TRUE).
 DISPLAY WITH FRAME f-pedidos.
-WAIT-FOR ENDKEY OF FRAME f-pedidos.
+APPLY "choose" TO bt-primeiro.
+
 
 
 PROCEDURE pi-abrirQuery:
@@ -399,92 +363,269 @@ PROCEDURE pi-abrirQuery:
     END.
     
     OPEN QUERY q-pedidos
-        FOR EACH Pedidos,
-            FIRST Clientes WHERE Clientes.CodCliente = Pedidos.CodCliente,
-            FIRST Cidades WHERE Cidades.CodCidade = Clientes.CodCidade.
+        FOR EACH Pedidos NO-LOCK,
+            FIRST Clientes WHERE  Clientes.CodCliente = Pedidos.CodCliente NO-LOCK,
+            FIRST Cidades WHERE Cidades.CodCidade = Clientes.CodCidade NO-LOCK.
         
     REPOSITION q-pedidos TO ROWID rRecord NO-ERROR.
 END PROCEDURE.
 
-PROCEDURE pi-mostra:
-    DEFINE VARIABLE iCodPedido AS INTEGER NO-UNDO.
-
-    IF AVAILABLE Pedidos THEN
+PROCEDURE pi-validaCliente:
+    DEFINE INPUT PARAMETER p-cliente AS INTEGER NO-UNDO.
+    DEFINE OUTPUT PARAMETER p-valid AS LOGICAL NO-UNDO INITIAL NO.
+    
+    FIND FIRST b-clientes NO-LOCK
+        WHERE b-clientes.CodCliente = p-cliente NO-ERROR.
+        
+    IF NOT AVAILABLE b-clientes THEN
     DO:
-        ASSIGN iCodPedido = Pedidos.CodPedido.
-
-        DISPLAY Pedidos.CodPedido 
-                Pedidos.DatPedido
-                Pedidos.CodCliente  
-                Clientes.NomCliente 
-                Clientes.CodEndereco   
-                Clientes.CodCidade  
-                Cidades.NomCidade 
-                Pedidos.Observacao  
-                WITH FRAME f-pedidos.
-
-        /* Limpa e carrega os itens do pedido selecionado na temp-table */
-        EMPTY TEMP-TABLE ttItens.
-
-        FOR EACH Itens NO-LOCK WHERE Itens.CodPedido = iCodPedido:
-            FIND Produtos WHERE Produtos.CodProduto = Itens.CodProduto NO-LOCK NO-ERROR.
-
-            CREATE ttItens.
-            ASSIGN
-                ttItens.CodItem       = Itens.CodItem
-                ttItens.CodProduto    = Itens.CodProduto
-                ttItens.NomProduto    = IF AVAILABLE Produtos THEN Produtos.NomProduto ELSE "Desconhecido"
-                ttItens.NumQuantidade = Itens.NumQuantidade
-                ttItens.ValUnitario   = IF AVAILABLE Produtos THEN Produtos.ValProduto ELSE 0
-                ttItens.ValTotal      = Itens.ValTotal.
-        END.
-
-        /* Atualiza a query do browse */
-        IF NOT QUERY q-itens:IS-OPEN THEN
-            OPEN QUERY q-itens FOR EACH ttItens.
-        ELSE DO:
-            CLOSE QUERY q-itens.
-            OPEN QUERY q-itens FOR EACH ttItens.
-        END.
-
-        b-itens:SELECT-ROW(1) IN FRAME f-pedidos.
+        MESSAGE "Cliente nao existe!" VIEW-AS ALERT-BOX ERROR.
+        ASSIGN p-valid = NO.
     END.
-    ELSE DO:
-        CLEAR FRAME f-pedidos.
-        EMPTY TEMP-TABLE ttItens.
-        CLOSE QUERY q-itens.
+    IF AVAILABLE b-clientes THEN
+    DO:
+        FIND FIRST b-cidades NO-LOCK
+            WHERE b-cidades.CodCidade = b-clientes.CodCidade NO-ERROR.
+            
+        ASSIGN p-valid = YES.
     END.
 END PROCEDURE.
 
+PROCEDURE pi-mostra:
+    IF AVAILABLE Pedidos THEN
+    DO:
+        DISPLAY Pedidos.CodPedido 
+                Pedidos.CodCliente
+                Clientes.NomCliente
+                Clientes.CodEndereco
+                Clientes.CodCidade
+                Cidades.NomCidade
+                Pedidos.DatPedido
+                Pedidos.Observacao
+                WITH FRAME f-pedidos.
+    END.
+    ELSE DO:
+        DISPLAY "" @ Pedidos.CodPedido 
+                "" @ Pedidos.CodCliente
+                "" @ Clientes.NomCliente
+                "" @ Clientes.CodEndereco
+                "" @ Clientes.CodCidade
+                "" @ Cidades.NomCidade
+                "" @ Pedidos.DatPedido
+                "" @ Pedidos.Observacao
+                WITH FRAME f-pedidos.
+        DO WITH FRAME f-pedidos:
+            ASSIGN bt-primeiro:SENSITIVE      = FALSE
+               bt-anterior:SENSITIVE     =FALSE
+               bt-proximo:SENSITIVE      = FALSE
+               bt-ultimo:SENSITIVE       = FALSE
+               bt-adicionar:SENSITIVE    = TRUE
+               bt-editar:SENSITIVE       = FALSE
+               bt-deletar:SENSITIVE      = FALSE
+               bt-salvar:SENSITIVE       = FALSE
+               bt-cancelar:SENSITIVE     = FALSE
+               bt-exportar:SENSITIVE     = FALSE
+               bt-sair:SENSITIVE         = FALSE
+               bw-itens:SENSITIVE        = FALSE
+               bt-adicionarItem:SENSITIVE = FALSE
+               bt-editarItem:SENSITIVE   = FALSE
+               bt-eliminarItem:SENSITIVE = FALSE .
+        END.    
+    END.
+END PROCEDURE.
 
 PROCEDURE pi-habilitaCampos:
     DEFINE INPUT PARAMETER pEnable AS LOGICAL NO-UNDO.
     
     DO WITH FRAME f-pedidos:
-        ASSIGN Pedidos.DatPedido:SENSITIVE = pEnable 
-                Pedidos.CodCliente:SENSITIVE = pEnable   
-                Pedidos.Observacao:SENSITIVE = pEnable. 
+        ASSIGN Pedidos.CodCliente:SENSITIVE = pEnable
+               Pedidos.DatPedido:SENSITIVE  = pEnable
+               Pedidos.Observacao:SENSITIVE = pEnable.
     END.
 END PROCEDURE.
 
 PROCEDURE pi-habilitaBotoes:
     DEFINE INPUT PARAMETER pEnable AS LOGICAL NO-UNDO.
-    
     DO WITH FRAME f-pedidos:
-        ASSIGN bt-primeiro:SENSITIVE = pEnable
-            bt-anterior:SENSITIVE = pEnable
-            bt-proximo:SENSITIVE = pEnable
-            bt-ultimo:SENSITIVE = pEnable
-            bt-adicionar:SENSITIVE = pEnable
-            bt-editar:SENSITIVE = pEnable
-            bt-deletar:SENSITIVE = pEnable
-            bt-salvar:SENSITIVE = NOT pEnable
-            bt-cancelar:SENSITIVE = NOT pEnable
-            bt-adicionarItem:SENSITIVE = NOT pEnable
-            bt-editarItem:SENSITIVE = NOT pEnable
-            bt-deletarItem:SENSITIVE = NOT pEnable
-            bt-exportar:SENSITIVE = pEnable
-            bt-sair:SENSITIVE = pEnable    
-            b-itens:SENSITIVE = pEnable.
+        ASSIGN bt-primeiro:SENSITIVE      = pEnable
+               bt-anterior:SENSITIVE     = pEnable
+               bt-proximo:SENSITIVE      = pEnable
+               bt-ultimo:SENSITIVE       = pEnable
+               bt-adicionar:SENSITIVE    = pEnable
+               bt-editar:SENSITIVE       = pEnable
+               bt-deletar:SENSITIVE      = pEnable
+               bt-salvar:SENSITIVE       = NOT pEnable
+               bt-cancelar:SENSITIVE     = NOT pEnable
+               bt-exportar:SENSITIVE     = pEnable
+               bt-sair:SENSITIVE         = pEnable
+               bw-itens:SENSITIVE        = pEnable 
+               bt-adicionarItem:SENSITIVE = pEnable 
+               bt-editarItem:SENSITIVE   = pEnable 
+               bt-eliminarItem:SENSITIVE = pEnable .
     END.
 END PROCEDURE.
+
+
+PROCEDURE pi-mostraItens:
+    OPEN QUERY q-itens
+        FOR EACH Itens NO-LOCK
+            WHERE Itens.CodPedido = Pedidos.CodPedido,
+        FIRST Produtos NO-LOCK
+                WHERE Produtos.CodProduto = Itens.CodProduto.
+END PROCEDURE.
+
+/*---- PROCEDURES DE ITENS ----*/
+
+PROCEDURE pi-mostraFrameItem:
+    DEFINE BUTTON bt-salvarItem   LABEL "Salvar" AUTO-ENDKEY.
+    DEFINE BUTTON bt-cancelarItem LABEL "Cancelar" AUTO-ENDKEY.
+
+    DEFINE FRAME f-itens 
+         Itens.CodProduto COLON 20
+         Produtos.NomProduto NO-LABELS
+         Itens.NumQuantidade COLON 20
+         Itens.ValTotal COLON 20 SKIP(1)
+         bt-salvarItem
+         bt-cancelarItem
+         WITH SIDE-LABELS THREE-D SIZE 90 BY 10
+              VIEW-AS DIALOG-BOX TITLE "Item".
+
+    IF c-actionItem = "add" THEN DO:
+        /* Limpa os campos para novo item */
+        DISPLAY "" @ Itens.CodProduto
+                "" @ Produtos.NomProduto
+                0  @ Itens.NumQuantidade
+                0  @ Itens.ValTotal
+            WITH FRAME f-itens.
+    END.
+    ELSE IF c-actionItem = "edit" THEN DO:
+        FIND FIRST bf-itens NO-LOCK
+            WHERE bf-itens.CodPedido = Pedidos.CodPedido
+              AND bf-itens.CodItem = i-seqItem NO-ERROR.
+        IF AVAILABLE bf-itens THEN DO:
+            FIND FIRST bf-produtos NO-LOCK
+                WHERE bf-produtos.CodProduto = bf-itens.CodProduto NO-ERROR.
+
+            DISPLAY bf-itens.CodProduto @  Itens.CodProduto 
+                    bf-produtos.NomProduto @ Produtos.NomProduto
+                    bf-itens.NumQuantidade @ Itens.NumQuantidade
+                    bf-itens.ValTotal @ Itens.ValTotal
+                    WITH FRAME f-itens.  
+        END.
+    END.
+
+    DO WITH FRAME f-itens:
+        ASSIGN Itens.CodProduto:SENSITIVE = TRUE
+               Produtos.NomProduto:SENSITIVE = FALSE
+               Itens.NumQuantidade:SENSITIVE = TRUE
+               Itens.ValTotal:SENSITIVE = FALSE
+               bt-salvarItem:SENSITIVE = TRUE
+               bt-cancelarItem:SENSITIVE = TRUE.
+    END.
+
+    ON 'choose' OF bt-salvarItem IN FRAME f-itens
+    DO:
+        DEFINE VARIABLE l-valido AS LOGICAL NO-UNDO.
+
+        RUN pi-validaProduto(INPUT Itens.CodProduto:SCREEN-VALUE, OUTPUT l-valido).
+        IF NOT l-valido THEN RETURN NO-APPLY.
+
+        IF c-actionItem = "add" THEN DO:
+            FIND LAST bf-itens NO-LOCK
+                WHERE bf-itens.CodPedido = Pedidos.CodPedido NO-ERROR.
+            IF AVAILABLE bf-itens THEN
+                ASSIGN i-seqItem = bf-itens.CodItem + 1.
+            ELSE
+                ASSIGN i-seqItem = 1.
+
+            CREATE bf-itens.
+            ASSIGN bf-itens.CodItem = i-seqItem
+                   bf-itens.CodPedido = Pedidos.CodPedido.
+        END.
+        ELSE IF c-actionItem = "edit" THEN DO:
+            FIND FIRST bf-itens EXCLUSIVE-LOCK
+                WHERE bf-itens.CodPedido = Pedidos.CodPedido
+                  AND bf-itens.CodItem = i-seqItem NO-ERROR.
+        END.
+
+        /* Atribui os valores dos campos para o buffer exclusivo */
+        ASSIGN bf-itens.CodProduto = INPUT Itens.CodProduto
+               bf-itens.NumQuantidade = INPUT Itens.NumQuantidade.
+
+        FIND FIRST bf-produtos NO-LOCK
+            WHERE bf-produtos.CodProduto = bf-itens.CodProduto NO-ERROR.
+
+        IF AVAILABLE bf-produtos THEN
+            ASSIGN bf-itens.ValTotal = bf-produtos.ValProduto * bf-itens.NumQuantidade.
+
+        RUN pi-abrirQuery.
+        RUN pi-mostraItens.
+        RUN pi-totalPedido.
+
+    END.
+
+
+    ON 'leave' OF Itens.CodProduto IN FRAME f-itens
+    DO:
+        DEFINE VARIABLE l-valido AS LOGICAL NO-UNDO.
+
+        RUN pi-validaProduto(INPUT Itens.CodProduto:SCREEN-VALUE, OUTPUT l-valido).
+        IF NOT l-valido THEN RETURN NO-APPLY.
+
+        FIND FIRST bf-produtos NO-LOCK
+            WHERE bf-produtos.CodProduto = INPUT Itens.CodProduto NO-ERROR.
+
+        IF AVAILABLE bf-produtos THEN
+            DISPLAY bf-produtos.NomProduto @ Produtos.NomProduto WITH FRAME f-itens.
+    END.
+
+    ON 'leave' OF Itens.NumQuantidade IN FRAME f-itens
+    DO:
+        FIND FIRST bf-produtos NO-LOCK
+            WHERE bf-produtos.CodProduto = INPUT Itens.CodProduto NO-ERROR.
+        IF AVAILABLE bf-produtos THEN
+            ASSIGN Itens.ValTotal:SCREEN-VALUE = STRING(bf-produtos.ValProduto * INPUT Itens.NumQuantidade).
+    END.
+
+    WAIT-FOR ENDKEY OF FRAME f-itens.
+END PROCEDURE.
+
+
+
+PROCEDURE pi-validaProduto:
+    DEFINE INPUT PARAMETER p-produto AS INTEGER NO-UNDO.
+    DEFINE OUTPUT PARAMETER p-valido AS LOGICAL NO-UNDO INITIAL NO.
+
+    FIND FIRST bf-produtos NO-LOCK
+        WHERE bf-produtos.CodProduto = p-produto NO-ERROR.
+
+    IF NOT AVAILABLE bf-produtos THEN
+    DO:
+        MESSAGE "Produto nao existe!" VIEW-AS ALERT-BOX ERROR.
+        ASSIGN p-valido = NO.
+    END.
+    ELSE
+        ASSIGN p-valido = YES.
+END PROCEDURE.
+
+
+PROCEDURE pi-totalPedido:
+    DEFINE VARIABLE d-total AS DECIMAL NO-UNDO INITIAL 0.
+
+    FOR EACH itens NO-LOCK
+        WHERE itens.CodPedido = Pedidos.CodPedido:
+        ASSIGN d-total = d-total + itens.ValTotal.
+    END.
+    
+    FIND FIRST b-pedidos EXCLUSIVE-LOCK
+        WHERE b-pedidos.CodPedido = Pedidos.CodPedido NO-ERROR.
+    IF AVAILABLE b-pedidos THEN
+    DO:
+        ASSIGN b-pedidos.ValPedido = d-total.    
+    END.
+    ELSE 
+        MESSAGE "Pedido nao encontrado" VIEW-AS ALERT-BOX ERROR BUTTONS ok.
+END PROCEDURE.
+
+
+WAIT-FOR ENDKEY OF FRAME f-pedidos.
