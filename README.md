@@ -148,6 +148,28 @@ Obs: `-db c:/dados/xtudo.db -1` essa é a parte que vai nos conectar com o banco
 
 Após criar o atalho com a configuração acima, execute-o para iniciar o sistema conectado ao banco de dados.
 
+Clique na opcao `Tools` 
+![ProTools](media/ProTools.png)
+
+
+E clique na opcao de `ProPath` para configurarmos os caminhos do projeto
+![ProPath](media/ProPath.png)
+
+Insira os Caminhos  
+
+```bash
+C:/Trabalho_Final_Progress
+```
+```bash
+C:/Trabalho_Final_Progress/modules
+```
+```bash
+C:/Trabalho_Final_Progress/includes
+```
+
+![AdicionarProPath](media/AdicionarProPath.png)
+
+
 ### Como executar o projeto
 
 Ao abrir o atalho clique na opção `tool` e depois na opção `PRO tools`
@@ -162,11 +184,4 @@ Apos isso insira o Caminho a baixo no input `Name of Procedure To Run`:
 
 ```bash
 C:/Trabalho_Final_Progress/Menu.p
-```
-
-conectar no banco de dados:
-
-
-```
-c:/dados/xtudo.db
 ```
