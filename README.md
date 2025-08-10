@@ -123,21 +123,30 @@ A subpasta `DumpDados` armazena os arquivos `.d`, que correspondem aos dumps dos
 
 ### 2.3 Instalando Projeto
 **Instalando Projeto via `.Zip`:** <br>
-Acesse o repositório no GitHub e faça o download do projeto compactado em `.zip`.
+Faça o download do projeto no GitHub utilizando a opção de download em formato `.zip`.
 
 ![GitHubZip](media/imagem1.png)
 
-Estraia as pasta `Trabalho_Final_Progress` e a pasta `dados` no diretorio `c:` do seu dispositivo.
+Extraia as pastas `Trabalho_Final_Progress` e `dados` diretamente na raiz do disco `C:\` do seu sistema operacional.
 
 ![DiscoC](media/Image2.png)
 
-Crie um atalho `prowin` para rodar o projeto
+Crie um atalho para o executável do Progress OpenEdge (prowin.exe) na pasta `Trabalho_Final_Progress`, que será utilizado para executar o projeto.
+
+![CriarAtalho](media/CriandoAtalho.png)
+
+No campo de destino do atalho, insira o seguinte comando, que configura a execução do ambiente Progress com o projeto e conecta ao banco de dados:
+
 
 ```bash
 C:\Progress\OpenEdge\bin\prowin.exe -p _desk.p -db c:/dados/xtudo.db -1 -d dmy -E
 ```
 
+Obs: `-db c:/dados/xtudo.db -1` essa é a parte que vai nos conectar com o banco de dados.
 
+![DigitarAtalho](media/DigitarAtalho.png)
+
+Após criar o atalho com a configuração acima, execute-o para iniciar o sistema conectado ao banco de dados.
 
 ### Como executar o projeto
 
