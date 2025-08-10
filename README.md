@@ -158,6 +158,12 @@ Clique em RUN para executar o projeto.
 
 ![ProToolRunClick](media/ProToolRunClick.png)
 
+Apos isso insira o Caminho a baixo no input `Name of Procedure To Run`:
+
+```bash
+C:/Trabalho_Final_Progress/Menu.p
+```
+
 conectar no banco de dados:
 
 
