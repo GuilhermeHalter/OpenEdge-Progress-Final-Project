@@ -150,7 +150,9 @@ Após criar o atalho com a configuração acima, execute-o para iniciar o sistem
 
 ### Como executar o projeto
 
+Ao abrir o atalho clique na opção `tool` e depois na opção `PRO tools`
 
+![ProToolRun](media/ProToolRun.png)
 conectar no banco de dados:
 
 
