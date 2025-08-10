@@ -173,16 +173,18 @@ C:/Trabalho_Final_Progress/includes
 
 ### Como executar o projeto
 
-Ao abrir o atalho clique na opção `tool` e depois na opção `PRO tools`
+No menu principal do ambiente Progress, clique em `Tools` e selecione `PRO Tools`.
 
 ![ProToolRun](media/ProToolRun.png)
 
-Clique em RUN para executar o projeto.
+Na janela do PRO Tools, clique no botão `RUN` para iniciar a execução de um procedimento.
 
 ![ProToolRunClick](media/ProToolRunClick.png)
 
-Apos isso insira o Caminho a baixo no input `Name of Procedure To Run`:
+Quando solicitado, informe o caminho completo do procedimento principal do projeto no campo `Name of Procedure To Run`:
 
 ```bash
 C:/Trabalho_Final_Progress/Menu.p
 ```
+
+Confirme para que o sistema carregue e execute o procedimento especificado, iniciando a aplicação.
