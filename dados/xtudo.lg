@@ -1,0 +1,36 @@
+
+                Sun Aug 10 15:52:05 2025
+[2025/08/10@15:52:05.562-0300] P-15132      T-2772  I DBUTIL   : (451)   prostrct create session begin for anaha on CON:. 
+[2025/08/10@15:52:05.563-0300] P-15132      T-2772  I DBUTIL   : (12862) Structure file c:/dados\xtudo.st used to create database with blocksize 4096. 
+[2025/08/10@15:52:05.564-0300] P-15132      T-2772  I DBUTIL   : (334)   prostrct create session end. 
+[2025/08/10@15:52:05.582-0300] P-15132      T-2772  I DBUTIL   : (451)   procopy session begin for anaha on CON:. 
+[2025/08/10@15:52:05.591-0300] P-15132      T-2772  I DBUTIL   : (334)   procopy session end. 
+
+                Sun Aug 10 15:52:05 2025
+[2025/08/10@15:52:05.607-0300] P-15132      T-2772  I DBUTIL   : (451)   procopy get default SQL DBA session begin for anaha on CON:. 
+[2025/08/10@15:52:05.607-0300] P-15132      T-2772  I DBUTIL   : (15321) Before Image Log Initialization at block 0  offset 0. 
+[2025/08/10@15:52:05.613-0300] P-15132      T-2772  I DBUTIL   : (14867) Procopy -newinstance Created a new database GUID. 
+[2025/08/10@15:52:05.613-0300] P-15132      T-2772  I DBUTIL   : (15109) At Database close the number of live transactions is 0. 
+[2025/08/10@15:52:05.613-0300] P-15132      T-2772  I DBUTIL   : (15743) Before Image Log Completion at Block 0 Offset 2618. 
+[2025/08/10@15:52:05.614-0300] P-15132      T-2772  I DBUTIL   : (334)   procopy get default SQL DBA session end. 
+
+                Sun Aug 10 15:52:10 2025
+[2025/08/10@15:52:10.433-0300] P-26856      T-5320  I ABL      : (451)   Single-user session begin for anaha on CON:. 
+[2025/08/10@15:52:10.434-0300] P-26856      T-5320  I ABL      : (15321) Before Image Log Initialization at block 0  offset 2618. 
+[2025/08/10@15:52:10.452-0300] P-26856      T-5320  I ABL      : (7129)  Usr 0 set name to anaha. 
+[2025/08/10@16:23:47.902-0300] P-26856      T-5320  I ABL      : (15109) At Database close the number of live transactions is 0. 
+[2025/08/10@16:23:47.902-0300] P-26856      T-5320  I ABL      : (15743) Before Image Log Completion at Block 20 Offset 6145. 
+[2025/08/10@16:23:47.903-0300] P-26856      T-5320  I ABL      : (334)   Single-user session end. 
+
+                Sun Aug 10 16:26:29 2025
+[2025/08/10@16:26:29.980-0300] P-20304      T-2740  I ABL      : (451)   Single-user session begin for anaha on CON:. 
+[2025/08/10@16:26:29.981-0300] P-20304      T-2740  I ABL      : (15321) Before Image Log Initialization at block 20  offset 6145. 
+[2025/08/10@16:26:29.998-0300] P-20304      T-2740  I ABL      : (7129)  Usr 0 set name to anaha. 
+[2025/08/10@16:29:56.189-0300] P-20304      T-2740  I ABL      : (15109) At Database close the number of live transactions is 0. 
+[2025/08/10@16:29:56.189-0300] P-20304      T-2740  I ABL      : (15743) Before Image Log Completion at Block 21 Offset 1658. 
+[2025/08/10@16:29:56.190-0300] P-20304      T-2740  I ABL      : (334)   Single-user session end. 
+
+                Sun Aug 10 16:30:34 2025
+[2025/08/10@16:30:34.306-0300] P-24808      T-2540  I ABL      : (451)   Single-user session begin for anaha on CON:. 
+[2025/08/10@16:30:34.307-0300] P-24808      T-2540  I ABL      : (15321) Before Image Log Initialization at block 21  offset 1658. 
+[2025/08/10@16:30:34.314-0300] P-24808      T-2540  I ABL      : (7129)  Usr 0 set name to anaha. 
