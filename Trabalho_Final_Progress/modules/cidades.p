@@ -50,7 +50,7 @@ END.
 ON 'choose' OF bt-proximo 
 DO:
     GET NEXT q-cidades.
-    IF NOT AVAIL cidades THEN
+    IF NOT AVAILABLE cidades THEN
     DO:
         GET FIRST q-cidades.        
     END.

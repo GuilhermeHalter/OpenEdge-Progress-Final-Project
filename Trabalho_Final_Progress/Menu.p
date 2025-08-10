@@ -75,16 +75,16 @@ PROCEDURE pi-relatorioClientes:
     DEFINE VARIABLE c-cidadeStr  AS CHARACTER NO-UNDO.
     
     DEFINE FRAME f-clientes HEADER
-        "RelatÃ³rio de Clientes" AT 1
+        "Relatório de Clientes" AT 1
         TODAY TO 100
         WITH CENTERED PAGE-TOP WIDTH 150.
         
     DEFINE FRAME f-dadosClientes 
-        Clientes.CodCliente    LABEL "CÃ³digo"     FORMAT ">>9"
+        Clientes.CodCliente    LABEL "Código"     FORMAT ">>9"
         Clientes.NomCliente    LABEL "Nome"       FORMAT "x(30)"
-        Clientes.CodEndereco   LABEL "EndereÃ§o"   FORMAT "x(25)"
+        Clientes.CodEndereco   LABEL "Endereço"   FORMAT "x(25)"
         c-cidadeStr            LABEL "Cidade"     FORMAT "x(25)"
-        Clientes.Observacao    LABEL "ObservaÃ§Ã£o" FORMAT "x(40)"
+        Clientes.Observacao    LABEL "Observação" FORMAT "x(40)"
         WITH DOWN WIDTH 150.
 
     ASSIGN c-arquivo = SESSION:TEMP-DIRECTORY + "clientes.txt". 
@@ -121,22 +121,22 @@ PROCEDURE pi-relatorioPedidos:
 
     ASSIGN c-arquivo = SESSION:TEMP-DIRECTORY + "pedidos.txt".
 
-    
+    /* Cabeçalho do relatório */
     DEFINE FRAME f-cabecalho
-        "RELATÃ“RIO DE PEDIDOS"
+        "RELATÓRIO DE PEDIDOS"
         SKIP
         WITH CENTERED PAGE-TOP WIDTH 80.
 
-    
+    /* Dados do pedido */
     DEFINE FRAME f-pedido
         Pedidos.CodPedido LABEL "Pedido" FORMAT ">>9"  COLON 20
         Pedidos.DatPedido LABEL "Data" FORMAT "99/99/9999"
         Clientes.NomCliente LABEL "Cliente" FORMAT "x(25)" COLON 19
-        c-enderecoCompleto LABEL "EndereÃ§o" FORMAT "x(35)" COLON 21
-        Pedidos.Observacao LABEL "ObservaÃ§Ã£o" FORMAT "x(40)" COLON 21
+        c-enderecoCompleto LABEL "Endereço" FORMAT "x(35)" COLON 21
+        Pedidos.Observacao LABEL "Observação" FORMAT "x(40)" COLON 21
         WITH SIDE-LABELS WIDTH 100.
 
-    
+    /* Dados dos itens do pedido */
     DEFINE FRAME f-itens
         Itens.CodItem LABEL "Cod"
         Produtos.NomProduto LABEL "Produto" FORMAT "x(25)"
@@ -145,7 +145,7 @@ PROCEDURE pi-relatorioPedidos:
         Itens.ValTotal LABEL "Total Item" 
         WITH DOWN WIDTH 90.
 
-    
+    /* Total geral do pedido */
     DEFINE FRAME f-total
         d-total LABEL "Total do Pedido"
         WITH WIDTH 80.
@@ -159,7 +159,7 @@ PROCEDURE pi-relatorioPedidos:
         FIND Clientes NO-LOCK WHERE Clientes.CodCliente = Pedidos.CodCliente NO-ERROR.
         FIND Cidades NO-LOCK WHERE Cidades.CodCidade = Clientes.CodCidade NO-ERROR.
 
-        
+        /* Montar endereço completo */
         ASSIGN c-enderecoCompleto = 
             Clientes.CodEndereco + " / " +
             (IF AVAILABLE(Cidades) THEN Cidades.NomCidade + "-" + Cidades.CodUF ELSE "???").
@@ -179,7 +179,7 @@ PROCEDURE pi-relatorioPedidos:
             FIND Produtos NO-LOCK WHERE Produtos.CodProduto = Itens.CodProduto NO-ERROR.
 
             IF AVAILABLE(Produtos) THEN DO:
-                
+                /* Somar total */
                 ASSIGN d-total = d-total + Itens.ValTotal.
 
                 DISPLAY
@@ -203,5 +203,4 @@ PROCEDURE pi-relatorioPedidos:
 
     OS-COMMAND NO-WAIT VALUE("notepad.exe " + c-arquivo).
 END PROCEDURE.
-
 

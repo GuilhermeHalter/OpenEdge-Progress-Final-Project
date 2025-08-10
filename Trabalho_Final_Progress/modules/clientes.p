@@ -43,7 +43,7 @@ END.
 ON 'choose' OF bt-anterior 
 DO:
     GET PREV q-clientes.
-    IF NOT AVAIL Clientes THEN
+    IF NOT AVAILABLE Clientes THEN
     DO:
         GET LAST q-clientes.        
     END.
@@ -53,7 +53,7 @@ END.
 ON 'choose' OF bt-proximo 
 DO:
     GET NEXT q-clientes.
-    IF NOT AVAIL Clientes THEN
+    IF NOT AVAILABLE Clientes THEN
     DO:
         GET FIRST q-clientes.        
     END.

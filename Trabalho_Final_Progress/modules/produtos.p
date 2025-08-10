@@ -40,7 +40,7 @@ END.
 ON 'choose' OF bt-anterior 
 DO:
     GET PREV q-produtos.
-    IF NOT AVAIL Produtos THEN
+    IF NOT AVAILABLE Produtos THEN
     DO:
         GET LAST q-produtos.        
     END.
@@ -50,7 +50,7 @@ END.
 ON 'choose' OF bt-proximo 
 DO:
     GET NEXT q-produtos.
-    IF NOT AVAIL Produtos THEN
+    IF NOT AVAILABLE Produtos THEN
     DO:
         GET FIRST q-produtos.        
     END.

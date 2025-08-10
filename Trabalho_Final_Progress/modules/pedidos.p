@@ -79,7 +79,7 @@ END.
 ON 'choose' OF bt-anterior 
 DO:
     GET PREV q-pedidos.
-    IF NOT AVAIL Pedidos THEN
+    IF NOT AVAILABLE Pedidos THEN
     DO:
         GET LAST q-pedidos.        
     END.
@@ -90,7 +90,7 @@ END.
 ON 'choose' OF bt-proximo 
 DO:
     GET NEXT q-pedidos.
-    IF NOT AVAIL Pedidos THEN
+    IF NOT AVAILABLE Pedidos THEN
     DO:
         GET FIRST q-pedidos.        
     END.
@@ -296,7 +296,7 @@ DO:
         RETURN.
     END.
 
-    /* Obtém o CodItem do registro atual da tabela Itens */
+    /* Obtï¿½m o CodItem do registro atual da tabela Itens */
     ASSIGN i-seqItem = Itens.CodItem.
 
     ASSIGN c-actionItem = "edit".
@@ -614,7 +614,7 @@ PROCEDURE pi-totalPedido:
         ASSIGN b-pedidos.ValPedido = d-total.    
     END.
     ELSE 
-        MESSAGE "Pedido nao encontrado" VIEW-AS ALERT-BOX ERROR BUTTONS ok.
+        MESSAGE "Pedido nao encontrado" VIEW-AS ALERT-BOX ERROR BUTTONS OK.
 END PROCEDURE.
 
 
