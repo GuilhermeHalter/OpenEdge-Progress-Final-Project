@@ -150,7 +150,8 @@ Após criar o atalho com a configuração acima, execute-o para iniciar o sistem
 
 
 No menu superior do ambiente Progress, acesse a opção `Tools`.
-![ProTools](http://github.com/GuilhermeHalter/assets-md/blob/main/media/ProTools.png)
+
+![ProTools](https://github.com/GuilhermeHalter/assets-md/blob/main/media/ProTools.png)
 
 
 Selecione `ProPath` para abrir a configuração dos diretórios de busca do ambiente.
