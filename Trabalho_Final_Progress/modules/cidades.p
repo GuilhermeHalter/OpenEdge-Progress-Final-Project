@@ -50,12 +50,20 @@ END.
 ON 'choose' OF bt-anterior 
 DO:
     GET PREV q-cidades.
+    IF NOT AVAILABLE Cidades THEN
+    DO:
+        GET LAST q-cidades.    
+    END.
     RUN pi-mostra.
 END.
 
 ON 'choose' OF bt-proximo 
 DO:
     GET NEXT q-cidades.
+    IF NOT AVAIL cidades THEN
+    DO:
+        GET FIRST q-cidades.        
+    END.
     RUN pi-mostra.
 END.
 
@@ -176,6 +184,7 @@ END.
 RUN pi-abrirQuery. 
 RUN pi-habilitaBotoes (INPUT TRUE).
 DISPLAY WITH FRAME f-cidades.
+APPLY "CHOOSE" TO bt-primeiro.
 
 WAIT-FOR ENDKEY OF FRAME f-cidades.
 
@@ -203,7 +212,23 @@ PROCEDURE pi-mostra:
                 WITH FRAME f-cidades.
     END.
     ELSE DO:
-        CLEAR FRAME f-cidades.
+        DISPLAY "" @ Cidades.CodCidade 
+                "" @ Cidades.NomCidade 
+                "" @ Cidades.CodUF
+                WITH FRAME f-cidades.
+        DO WITH FRAME f-cidades:
+            ASSIGN bt-primeiro:SENSITIVE = FALSE
+                    bt-anterior:SENSITIVE    = FALSE
+                    bt-proximo:SENSITIVE     = FALSE
+                    bt-ultimo:SENSITIVE      = FALSE
+                    bt-adicionar:SENSITIVE   = TRUE
+                    bt-editar:SENSITIVE      = FALSE
+                    bt-deletar:SENSITIVE     = FALSE
+                    bt-salvar:SENSITIVE      = FALSE
+                    bt-cancelar:SENSITIVE    = FALSE
+                    bt-exportar:SENSITIVE    = FALSE
+                    bt-sair:SENSITIVE        = TRUE.    
+        END.
     END.
 END PROCEDURE.
 

@@ -53,12 +53,20 @@ END.
 ON 'choose' OF bt-anterior 
 DO:
     GET PREV q-clientes.
+    IF NOT AVAIL Clientes THEN
+    DO:
+        GET LAST q-clientes.        
+    END.
     RUN pi-mostra.
 END.
 
 ON 'choose' OF bt-proximo 
 DO:
     GET NEXT q-clientes.
+    IF NOT AVAIL Clientes THEN
+    DO:
+        GET FIRST q-clientes.        
+    END.
     RUN pi-mostra.
 END.
 
@@ -213,6 +221,7 @@ END.
 RUN pi-abrirQuery. 
 RUN pi-habilitaBotoes (INPUT TRUE).
 DISPLAY WITH FRAME f-clientes.
+APPLY "CHOOSE" TO bt-primeiro.
 WAIT-FOR ENDKEY OF FRAME f-clientes.
                   
 PROCEDURE pi-abrirQuery:
@@ -242,7 +251,24 @@ PROCEDURE pi-mostra:
                 WITH FRAME f-clientes.
     END.
     ELSE DO:
-        CLEAR FRAME f-clientes.
+        DISPLAY "" @ Clientes.CodCliente
+                "" @ Clientes.NomCliente
+                "" @ Clientes.CodEndereco
+                "" @ Clientes.CodCidade
+                "" @ Cidade.NomCidade
+                "" @ Clientes.Observacao
+                WITH FRAME f-clientes.
+        ASSIGN bt-primeiro:SENSITIVE = FALSE
+            bt-anterior:SENSITIVE    = FALSE
+            bt-proximo:SENSITIVE     = FALSE
+            bt-ultimo:SENSITIVE      = FALSE
+            bt-adicionar:SENSITIVE   = TRUE
+            bt-editar:SENSITIVE      = FALSE
+            bt-deletar:SENSITIVE     = FALSE
+            bt-salvar:SENSITIVE      = FALSE
+            bt-cancelar:SENSITIVE    = FALSE
+            bt-exportar:SENSITIVE    = FALSE
+            bt-sair:SENSITIVE        = TRUE.
     END.
 END PROCEDURE.
 

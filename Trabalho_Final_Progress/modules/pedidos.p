@@ -425,7 +425,7 @@ PROCEDURE pi-mostra:
                bt-salvar:SENSITIVE       = FALSE
                bt-cancelar:SENSITIVE     = FALSE
                bt-exportar:SENSITIVE     = FALSE
-               bt-sair:SENSITIVE         = FALSE
+               bt-sair:SENSITIVE         = TRUE
                bw-itens:SENSITIVE        = FALSE
                bt-adicionarItem:SENSITIVE = FALSE
                bt-editarItem:SENSITIVE   = FALSE

@@ -17,7 +17,7 @@ DEFINE BUTTON bt-exportar LABEL "Exportar".
 DEFINE BUTTON bt-sair LABEL "Sair" AUTO-ENDKEY.
 
 DEFINE VARIABLE cAction AS CHARACTER NO-UNDO.
-
+   
 DEFINE QUERY q-produtos FOR Produtos SCROLLING.
 
 DEFINE BUFFER b-produtos FOR Produtos.
@@ -50,12 +50,20 @@ END.
 ON 'choose' OF bt-anterior 
 DO:
     GET PREV q-produtos.
+    IF NOT AVAIL Produtos THEN
+    DO:
+        GET LAST q-produtos.        
+    END.
     RUN pi-mostra.
 END.
 
 ON 'choose' OF bt-proximo 
 DO:
     GET NEXT q-produtos.
+    IF NOT AVAIL Produtos THEN
+    DO:
+        GET FIRST q-produtos.        
+    END.
     RUN pi-mostra.
 END.
 
@@ -176,7 +184,7 @@ END.
 RUN pi-abrirQuery. 
 RUN pi-habilitaBotoes (INPUT TRUE).
 DISPLAY WITH FRAME f-produtos.
-
+APPLY "choose" TO bt-primeiro.
 WAIT-FOR ENDKEY OF FRAME f-produtos.
 
 
@@ -203,7 +211,21 @@ PROCEDURE pi-mostra:
                 WITH FRAME f-produtos.
     END.
     ELSE DO:
-        CLEAR FRAME f-produtos.
+        DISPLAY "" @ Produtos.CodProduto 
+                "" @ Produtos.NomProduto
+                "" @ Produtos.ValProduto
+                WITH FRAME f-produtos.
+        ASSIGN bt-primeiro:SENSITIVE = FALSE
+            bt-anterior:SENSITIVE    = FALSE
+            bt-proximo:SENSITIVE     = FALSE
+            bt-ultimo:SENSITIVE      = FALSE
+            bt-adicionar:SENSITIVE   = TRUE
+            bt-editar:SENSITIVE      = FALSE
+            bt-deletar:SENSITIVE     = FALSE
+            bt-salvar:SENSITIVE      = FALSE
+            bt-cancelar:SENSITIVE    = FALSE
+            bt-exportar:SENSITIVE    = FALSE
+            bt-sair:SENSITIVE        = TRUE.
     END.
 END PROCEDURE.
 
