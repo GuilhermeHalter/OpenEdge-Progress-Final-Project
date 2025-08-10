@@ -195,4 +195,11 @@ Confirme para que o sistema carregue e execute o procedimento especificado, inic
 https://github.com/user-attachments/assets/421a40a4-894f-4af1-a222-69cdf5581103
 
 
+---
 
+### Autor
+  **Guilherme Halter Nunes**
+
+- GitHub: [@GuilhermeHalter](https://github.com/GuilhermeHalter)  
+- LinkedIn: [GuilhermeHalter](https://www.linkedin.com/in/guilherme-halter-nunes/)
+- Portifólio: [GuilhermeHalter](https://portifolio-guilherme-halter.vercel.app/)  
