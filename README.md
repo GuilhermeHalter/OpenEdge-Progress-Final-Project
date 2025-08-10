@@ -103,6 +103,24 @@ A pasta `includes` contém arquivos de inclusão que são reutilizados nos diver
 
 ![Include](media/PastaInclude.png)
 
+---
+
+A pasta `dados` contém todos os arquivos físicos que compõem o banco de dados do sistema, incluindo os arquivos de dados e índices utilizados pela base.
+
+![Dados](media/PastaDados.png)
+
+---
+
+A pasta `DumpSchema` é composta por um arquivo de definição de esquema `.df` e uma subpasta `DumpDados`. O arquivo `.df` descreve a estrutura lógica do banco de dados, como tabelas, índices e relacionamentos.
+
+
+![Dados](media/PastaSchema.png)
+
+---
+A subpasta `DumpDados` armazena os arquivos `.d`, que correspondem aos dumps dos dados armazenados no banco, representando o conteúdo das tabelas em formato físico ou exportado para restauração.
+
+![Dados](media/PastaDumpDados.png)
+
 ### 2.3 Instalando Projeto
 **Instalando Projeto via `.Zip`:** <br>
 Acesse o repositório no GitHub e faça o download do projeto compactado em `.zip`.
