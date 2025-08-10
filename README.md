@@ -90,5 +90,5 @@ conectar no banco de dados:
 
 
 ```
-c:/Trabalho_Final_Progress/db/xtudo
+c:/dados/xtudo.db
 ```
