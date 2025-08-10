@@ -64,7 +64,7 @@ Principais funcionalidades:
 ![Pedidos](media/PedidosXtudo.png)
 
 ## 2. Execução e Estrutura
-[2.1 Pré-requisitos para Execução do Projeto](###2.1-Pré-requisitos-para-Execução-do-Projeto)
+
 ### 2.1 Pré-requisitos para Execução do Projeto
 Para executar corretamente o projeto em sua máquina local, é necessário que os seguintes componentes estejam previamente instalados:<br>
 - [JAVA Development Kit - JDK 20.0.2](https://jdk.java.net/archive/)
@@ -72,8 +72,12 @@ Para executar corretamente o projeto em sua máquina local, é necessário que o
 
 Certifique-se de que ambas as ferramentas estejam devidamente configuradas nas variáveis de ambiente do sistema operacional.
 
-### 2.2 Instalando Projeto
-**Instalando Projeto via `.Zip`:**<br>
+### 2.2 Estrutura das Pastas e Arquivos
+O projeto contem as seguintes pastas e arquivos
+
+
+### 2.3 Instalando Projeto
+**Instalando Projeto via `.Zip`:** <br>
 Acesse o repositório no GitHub e faça o download do projeto compactado em `.zip`.
 ![GitHubZip](media/Image1.png)
 
