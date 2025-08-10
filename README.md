@@ -73,8 +73,35 @@ Para executar corretamente o projeto em sua máquina local, é necessário que o
 Certifique-se de que ambas as ferramentas estejam devidamente configuradas nas variáveis de ambiente do sistema operacional.
 
 ### 2.2 Estrutura das Pastas e Arquivos
-O projeto contem as seguintes pastas e arquivos
+O projeto está organizado de forma modular, contendo as seguintes pastas e arquivos na raiz do diretório:<br>
+`Menu.p` – Arquivo principal do sistema, responsável por inicializar a aplicação e fornecer acesso às demais funcionalidades por meio do menu principal.<br>
+`modules/` – Diretório que contém os arquivos-fonte (`.p`) correspondentes às demais telas e módulos do sistema. Cada arquivo dentro dessa pasta implementa funcionalidades específicas.<br>
+`includes/` – Diretório que armazena arquivos de inclusão (`.i`) contendo trechos de código reutilizáveis, como definições de variáveis globais, funções auxiliares.
 
+![Pastas](media/EstruturaPastas.png)
+
+---
+
+A pasta `modules` contém os arquivos-fonte responsáveis pela implementação das funcionalidades CRUD para as entidades do sistema. Especificamente, esta pasta inclui os seguintes arquivos:
+
+`Cidades.p` – Implementa as funcionalidades CRUD referentes ao cadastro e manutenção de cidades.
+
+`Clientes.p` – Implementa as funcionalidades CRUD referentes ao cadastro e manutenção de clientes.
+
+`Produtos.p` – Implementa as funcionalidades CRUD referentes ao cadastro e manutenção de produtos.
+
+`Pedidos.p` – Implementa as funcionalidades CRUD referentes ao cadastro e manutenção de produtos e itens.
+
+Cada módulo encapsula as regras de negócio e interações específicas para sua entidade, garantindo a separação de responsabilidades e facilitando a manutenção e evolução do sistema.
+
+![Modules](media/PastaModules.png)
+
+---
+A pasta `includes` contém arquivos de inclusão que são reutilizados nos diversos módulos do sistema, com o objetivo de promover a modularidade e reduzir a duplicação de código.
+
+`navbar.i` – Define a implementação dos botões da barra de navegação (navbar). Este arquivo é incluído nos programas sempre que a interface de navegação é necessária
+
+![Include](media/PastaInclude.png)
 
 ### 2.3 Instalando Projeto
 **Instalando Projeto via `.Zip`:** <br>
