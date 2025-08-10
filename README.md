@@ -148,14 +148,15 @@ Obs: `-db c:/dados/xtudo.db -1` essa é a parte que vai nos conectar com o banco
 
 Após criar o atalho com a configuração acima, execute-o para iniciar o sistema conectado ao banco de dados.
 
-Clique na opcao `Tools` 
+
+No menu superior do ambiente Progress, acesse a opção `Tools`.
 ![ProTools](media/ProTools.png)
 
 
-E clique na opcao de `ProPath` para configurarmos os caminhos do projeto
+Selecione `ProPath` para abrir a configuração dos diretórios de busca do ambiente.
 ![ProPath](media/ProPath.png)
 
-Insira os Caminhos  
+Adicione os seguintes diretórios ao `ProPath` para garantir que o sistema localize corretamente os recursos e módulos do projeto:
 
 ```bash
 C:/Trabalho_Final_Progress
