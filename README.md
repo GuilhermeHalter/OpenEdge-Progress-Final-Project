@@ -42,7 +42,7 @@ Principais funcionalidades:
 - Inserção, alteração e exclusão de clientes.
 - Associação de endereços e cidades ao cliente.
 
-![Clientes](media/ClientesXtudo.png)
+![Clientes](https://github.com/GuilhermeHalter/assets-md/blob/main/media/ClientesXtudo.png)
 
 **4. Tela de Produtos** <br>
 A Tela de Produtos é responsável pela gestão do catálogo de produtos.
@@ -51,7 +51,7 @@ Principais funcionalidades:
 - Cadastro e atualização de informações de produtos.
 - Definição de preços e códigos de identificação.
 
-![Produtos](media/ProdutosXtudo.png)
+![Produtos](https://github.com/GuilhermeHalter/assets-md/blob/main/media/ProdutosXtudo.png)
 
 **5. Tela de Pedidos** <br>
 A Tela de Pedidos permite o registro e gerenciamento de pedidos de clientes.
@@ -61,7 +61,7 @@ Principais funcionalidades:
 - Cálculo automático de valores totais.
 - Consulta e impressão de pedidos registrados.
 
-![Pedidos](media/PedidosXtudo.png)
+![Pedidos](https://github.com/GuilhermeHalter/assets-md/blob/main/media/PedidosXtudo.png)
 
 ## 2. Execução e Estrutura
 
@@ -78,7 +78,7 @@ O projeto está organizado de forma modular, contendo as seguintes pastas e arqu
 `modules/` – Diretório que contém os arquivos-fonte (`.p`) correspondentes às demais telas e módulos do sistema. Cada arquivo dentro dessa pasta implementa funcionalidades específicas.<br>
 `includes/` – Diretório que armazena arquivos de inclusão (`.i`) contendo trechos de código reutilizáveis, como definições de variáveis globais, funções auxiliares.
 
-![Pastas](media/EstruturaPastas.png)
+![Pastas](https://github.com/GuilhermeHalter/assets-md/blob/main/media/EstruturaPastas.png)
 
 ---
 
@@ -94,46 +94,46 @@ A pasta `modules` contém os arquivos-fonte responsáveis pela implementação d
 
 Cada módulo encapsula as regras de negócio e interações específicas para sua entidade, garantindo a separação de responsabilidades e facilitando a manutenção e evolução do sistema.
 
-![Modules](media/PastaModules.png)
+![Modules](https://github.com/GuilhermeHalter/assets-md/blob/main/media/PastaModules.png)
 
 ---
 A pasta `includes` contém arquivos de inclusão que são reutilizados nos diversos módulos do sistema, com o objetivo de promover a modularidade e reduzir a duplicação de código.
 
 `navbar.i` – Define a implementação dos botões da barra de navegação (navbar). Este arquivo é incluído nos programas sempre que a interface de navegação é necessária
 
-![Include](media/PastaInclude.png)
+![Include](https://github.com/GuilhermeHalter/assets-md/blob/main/media/PastaInclude.png)
 
 ---
 
 A pasta `dados` contém todos os arquivos físicos que compõem o banco de dados do sistema, incluindo os arquivos de dados e índices utilizados pela base.
 
-![Dados](media/PastaDados.png)
+![Dados](https://github.com/GuilhermeHalter/assets-md/blob/main/media/PastaDados.png)
 
 ---
 
 A pasta `DumpSchema` é composta por um arquivo de definição de esquema `.df` e uma subpasta `DumpDados`. O arquivo `.df` descreve a estrutura lógica do banco de dados, como tabelas, índices e relacionamentos.
 
 
-![Dados](media/PastaSchema.png)
+![Dados](https://github.com/GuilhermeHalter/assets-md/blob/main/media/PastaSchema.png)
 
 ---
 A subpasta `DumpDados` armazena os arquivos `.d`, que correspondem aos dumps dos dados armazenados no banco, representando o conteúdo das tabelas em formato físico ou exportado para restauração.
 
-![Dados](media/PastaDumpDados.png)
+![Dados](https://github.com/GuilhermeHalter/assets-md/blob/main/media/PastaDumpDados.png)
 
 ### 2.3 Instalando Projeto
 **Instalando Projeto via `.Zip`:** <br>
 Faça o download do projeto no GitHub utilizando a opção de download em formato `.zip`.
 
-![GitHubZip](media/imagem1.png)
+![GitHubZip](https://github.com/GuilhermeHalter/assets-md/blob/main/media/imagem1.png)
 
 Extraia as pastas `Trabalho_Final_Progress` e `dados` diretamente na raiz do disco `C:\` do seu sistema operacional.
 
-![DiscoC](media/Image2.png)
+![DiscoC](https://github.com/GuilhermeHalter/assets-md/blob/main/media/Image2.png)
 
 Crie um atalho para o executável do Progress OpenEdge (prowin.exe) na pasta `Trabalho_Final_Progress`, que será utilizado para executar o projeto.
 
-![CriarAtalho](media/CriandoAtalho.png)
+![CriarAtalho](https://github.com/GuilhermeHalter/assets-md/blob/main/media/CriandoAtalho.png)
 
 No campo de destino do atalho, insira o seguinte comando, que configura a execução do ambiente Progress com o projeto e conecta ao banco de dados:
 
@@ -144,17 +144,17 @@ C:\Progress\OpenEdge\bin\prowin.exe -p _desk.p -db c:/dados/xtudo.db -1 -d dmy -
 
 Obs: `-db c:/dados/xtudo.db -1` essa é a parte que vai nos conectar com o banco de dados.
 
-![DigitarAtalho](media/DigitarAtalho.png)
+![DigitarAtalho](https://github.com/GuilhermeHalter/assets-md/blob/main/media/DigitarAtalho.png)
 
 Após criar o atalho com a configuração acima, execute-o para iniciar o sistema conectado ao banco de dados.
 
 
 No menu superior do ambiente Progress, acesse a opção `Tools`.
-![ProTools](media/ProTools.png)
+![ProTools](http://github.com/GuilhermeHalter/assets-md/blob/main/media/ProTools.png)
 
 
 Selecione `ProPath` para abrir a configuração dos diretórios de busca do ambiente.
-![ProPath](media/ProPath.png)
+![ProPath](https://github.com/GuilhermeHalter/assets-md/blob/main/media/ProPath.png)
 
 Adicione os seguintes diretórios ao `ProPath` para garantir que o sistema localize corretamente os recursos e módulos do projeto:
 
@@ -168,18 +168,18 @@ C:/Trabalho_Final_Progress/modules
 C:/Trabalho_Final_Progress/includes
 ```
 
-![AdicionarProPath](media/AdicionarProPath.png)
+![AdicionarProPath](https://github.com/GuilhermeHalter/assets-md/blob/main/media/AdicionarProPath.png)
 
 
 ### 2.4 Como executar o projeto
 
 No menu principal do ambiente Progress, clique em `Tools` e selecione `PRO Tools`.
 
-![ProToolRun](media/ProToolRun.png)
+![ProToolRun](https://github.com/GuilhermeHalter/assets-md/blob/main/media/ProToolRun.png)
 
 Na janela do PRO Tools, clique no botão `RUN` para iniciar a execução de um procedimento.
 
-![ProToolRunClick](media/ProToolRunClick.png)
+![ProToolRunClick](https://github.com/GuilhermeHalter/assets-md/blob/main/media/ProToolRunClick.png)
 
 Quando solicitado, informe o caminho completo do procedimento principal do projeto no campo `Name of Procedure To Run`:
 
