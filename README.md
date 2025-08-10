@@ -131,7 +131,11 @@ Estraia as pasta `Trabalho_Final_Progress` e a pasta `dados` no diretorio `c:` d
 
 ![DiscoC](media/Image2.png)
 
+Crie um atalho `prowin` para rodar o projeto
 
+```bash
+C:\Progress\OpenEdge\bin\prowin.exe -p _desk.p -db c:/dados/xtudo.db -1 -d dmy -E
+```
 
 
 
