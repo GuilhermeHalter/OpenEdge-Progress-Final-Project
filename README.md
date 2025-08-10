@@ -17,28 +17,49 @@ O Projeto é composto por 5 Telas.
   - PRODUTOS
   - PEDIDOS
 
-**Tela de Menu:**
-A Primeira tela do sistema e a tela de `Menu` ela serve para que o usuario possa navegar entre as outras telas do sistema e gerar os relatórios de `Clientes` e `Pedidos`.
+**1. Tela de Menu** <br>
+A Tela de Menu é a interface inicial do sistema.
+Principais funcionalidades:
+
+- Navegar entre os módulos Cidades, Clientes, Produtos e Pedidos.
+- Acessar as rotinas de geração de relatórios de Clientes e Pedidos.
 
 ![Menu](media/MenuXtudo.png)
 
-**Tela de Cidades:**
-A tela de `Cidades`
+**2. Tela de Cidades** <br>
+A Tela de Cidades é utilizada para o gerenciamento das informações de localidades.
+Principais funcionalidades:
+
+- Cadastro, edição e exclusão de registros de cidades.
+- Associação de cidades aos cadastros de Clientes.
 
 ![Cidades](media/CidadesXtudo.png)
 
-**Tela de Clientes:**
-A tela de `Clientes`
+**3. Tela de Clientes** <br>
+A Tela de Clientes centraliza as operações de cadastro e manutenção de clientes.
+Principais funcionalidades:
+
+- Inserção, alteração e exclusão de clientes.
+- Associação de endereços e cidades ao cliente.
 
 ![Clientes](media/ClientesXtudo.png)
 
-**Tela de Produtos:**
-A tela de `Produtos`
+**4. Tela de Produtos** <br>
+A Tela de Produtos é responsável pela gestão do catálogo de produtos.
+Principais funcionalidades:
+
+- Cadastro e atualização de informações de produtos.
+- Definição de preços e códigos de identificação.
 
 ![Produtos](media/ProdutosXtudo.png)
 
-**Tela de Pedidos:**
-A tela de `Pedidos`
+**5. Tela de Pedidos** <br>
+A Tela de Pedidos permite o registro e gerenciamento de pedidos de clientes.
+Principais funcionalidades:
+
+- Inclusão de pedidos vinculados a clientes e produtos.
+- Cálculo automático de valores totais.
+- Consulta e impressão de pedidos registrados.
 
 ![Pedidos](media/PedidosXtudo.png)
 
