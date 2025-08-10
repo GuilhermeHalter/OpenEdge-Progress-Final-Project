@@ -10,6 +10,18 @@ A aplicação oferece uma interface simples e funcional, com foco na integridade
 
 ## Explicação de como o sistema funciona
 
+O Projeto é composto por 5 Telas.
+  - MENU 
+  - CIDADES
+  - CLIENTES
+  - PRODUTOS
+  - PEDIDOS
+
+**Tela de Menu:**
+A Primeira tela do sistema e a tela de `Menu` ela serve para que o usuario possa navegar entre as outras telas do sistema e gerar os relatórios de `Clientes` e `Pedidos`.
+
+
+
 ## 2. Execução e Estrutura
 [2.1 Pré-requisitos para Execução do Projeto](###2.1-Pré-requisitos-para-Execução-do-Projeto)
 ### 2.1 Pré-requisitos para Execução do Projeto
