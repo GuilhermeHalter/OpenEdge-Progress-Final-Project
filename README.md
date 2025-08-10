@@ -171,7 +171,7 @@ C:/Trabalho_Final_Progress/includes
 ![AdicionarProPath](media/AdicionarProPath.png)
 
 
-### Como executar o projeto
+### 2.4 Como executar o projeto
 
 No menu principal do ambiente Progress, clique em `Tools` e selecione `PRO Tools`.
 
