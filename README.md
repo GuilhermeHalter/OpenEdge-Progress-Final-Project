@@ -24,7 +24,7 @@ Principais funcionalidades:
 - Navegar entre os módulos Cidades, Clientes, Produtos e Pedidos.
 - Acessar as rotinas de geração de relatórios de Clientes e Pedidos.
 
-![Menu](media/MenuXtudo.png)
+![Menu](https://github.com/GuilhermeHalter/assets-md/blob/main/media/MenuXtudo.png)
 
 **2. Tela de Cidades** <br>
 A Tela de Cidades é utilizada para o gerenciamento das informações de localidades.
@@ -33,7 +33,7 @@ Principais funcionalidades:
 - Cadastro, edição e exclusão de registros de cidades.
 - Associação de cidades aos cadastros de Clientes.
 
-![Cidades](media/CidadesXtudo.png)
+![Cidades](https://github.com/GuilhermeHalter/assets-md/blob/main/media/CidadesXtudo.png)
 
 **3. Tela de Clientes** <br>
 A Tela de Clientes centraliza as operações de cadastro e manutenção de clientes.
